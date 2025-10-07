@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3007 (a b c : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) (hab : a + b + c = 1) :(120 * a ^ 8 + 136 * b ^ 8) ^ (1 / 8) + (120 * b ^ 8 + 136 * c ^ 8) ^ (1 / 8) + (120 * c ^ 8 + 136 * a ^ 8) ^ (1 / 8) ≥ 2   := by
+  norm_num [ha, hb, hc, hab]

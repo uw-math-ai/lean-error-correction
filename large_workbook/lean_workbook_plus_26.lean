@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_26 (a b c : ℝ) : (2 * a / (b + c)) ^ (27 / 46) + (2 * b / (a + c)) ^ (27 / 46) + (2 * c / (a + b)) ^ (27 / 46) ≥ 3   := by
+  norm_num [div_eq_mul_inv, mul_comm, mul_assoc, mul_left_comm]

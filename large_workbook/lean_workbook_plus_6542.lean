@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6542 (a b c : ℝ) : (a + b + c) * (a ^ 2 + b ^ 2 + c ^ 2) ≤ 1 / 9 * (a + b + c) ^ 3 + 2 * (a ^ 3 + b ^ 3 + c ^ 3) ↔ 0 ≤ (5 * a + 5 * b - c) * (a - b) ^ 2 + (5 * b + 5 * c - a) * (b - c) ^ 2 + (5 * c + 5 * a - b) * (c - a) ^ 2   := by
+  constructor <;> intro h <;> linarith

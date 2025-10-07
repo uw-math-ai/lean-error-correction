@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5563 (m : ℝ) : m ≥ 1 ∧ m ≤ 9 → ∃ P, P = (x^2 - m - 2 - Real.sqrt (8*m)) * (x^2 - m - 2 + Real.sqrt (8*m))   := by
+  refine' fun h => ⟨(x^2 - m - 2 - Real.sqrt (8 * m)) * (x^2 - m - 2 + Real.sqrt (8 * m)), by ring⟩

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1048 (a b c : ℝ) : (1 / 9) * (2 * a ^ 2 + 2 * c ^ 2 - b ^ 2 + 2 * a ^ 2 + 2 * b ^ 2 - c ^ 2) = a ^ 2 ↔ b ^ 2 + c ^ 2 = 5 * a ^ 2   := by
+  constructor <;> intro h <;> linarith

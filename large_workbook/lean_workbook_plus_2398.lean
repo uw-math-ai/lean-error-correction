@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2398 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) : 1 / (26 * a + 1)^(1 / 3) + 1 / (26 * b + 1)^(1 / 3) + 1 / (26 * c + 1)^(1 / 3) ≥ 1   := by
+  norm_num [ha, hb, hc, habc]

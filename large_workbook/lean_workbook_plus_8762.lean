@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8762 (x y z : ℝ) (hx : x > 0) (hy : y > 0) (hz : z > 0) (hab : x * y^2 + y * z^2 + z * x^2 = 3) : (x + 7)^(1 / 3) + (y + 7)^(1 / 3) + (z + 7)^(1 / 3) ≤ 6   := by
+  norm_num [hx, hy, hz, hab]

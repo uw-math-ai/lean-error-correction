@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8306 (a b c x y z : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (hx : 0 < x) (hy : 0 < y) (hz : 0 < z) (hab : a + b + c = 3) (h : a = Real.sqrt (3 * x / (x + y + z))) (h' : b = Real.sqrt (3 * y / (x + y + z))) (h'' : c = Real.sqrt (3 * z / (x + y + z))) : a^2 + b^2 + c^2 = 3 → x^2 + y^2 + z^2 >= x * y + y * z + z * x   := by
+  simpa [sq, h, h', h''] using fun h => by linarith [sq_nonneg (x - y), sq_nonneg (y - z), sq_nonneg (z - x)]

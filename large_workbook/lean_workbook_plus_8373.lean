@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8373 (x : ℕ → ℝ) : (x 1 - 1 / 2 * x 5) ^ 2 + (x 2 - 1 / 2 * x 5) ^ 2 + (x 3 - 1 / 2 * x 5) ^ 2 + (x 4 - 1 / 2 * x 5) ^ 2 ≥ 0   := by
+  nlinarith [sq_nonneg (x 1 - 1 / 2 * x 5), sq_nonneg (x 2 - 1 / 2 * x 5), sq_nonneg (x 3 - 1 / 2 * x 5), sq_nonneg (x 4 - 1 / 2 * x 5)]

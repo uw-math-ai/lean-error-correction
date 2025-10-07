@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_478 {a b c d : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) (hd : 0 ≤ d) (habc : a * b * c = 1) (h : a^3 + b^3 + c^3 + d^3 ≤ d^2) : a^4 + b^4 + c^4 + d^4 ≥ d^5   := by
+  nlinarith [ha, hb, hc, hd, pow_nonneg ha 3, pow_nonneg hb 3, pow_nonneg hc 3, pow_nonneg hd 3]

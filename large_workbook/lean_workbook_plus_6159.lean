@@ -1,0 +1,30 @@
+theorem lean_workbook_plus_6159 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : 1 / (4 * a) + 1 / (4 * b) + 1 / (4 * c) ≥ 1 / (2 * a + b + c) + 1 / (2 * b + c + a) + 1 / (2 * c + a + b)   := by
+  field_simp [ha, hb, hc]
+  rw [div_le_div_iff (by positivity) (by positivity)]
+  have := sq_nonneg (2 * b * c - a * (b + c))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * a * b - c * (a + b))
+  have := sq_nonneg (2 * a * b - c * (a + b))
+  have := sq_nonneg (2 * a * b - c * (a + b))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * a * b - c * (a + b))
+  have := sq_nonneg (2 * a * b - c * (a + b))
+  have := sq_nonneg (2 * a * b - c * (a + b))
+  have := sq_nonneg (2 * a * b - c * (a + b))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * a * b - c * (a + b))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * b * c - a * (b + c))
+  have := sq_nonneg (2 * b * c - a * (b + c))
+  have := sq_nonneg (2 * a * b - c * (a + b))
+  have := sq_nonneg (2 * a * b - c * (a + b))
+  have := sq_nonneg (2 * c * a - b * (c + a))
+  have := sq_nonneg (2 * b * c - a * (b + c))
+  ring_nf
+  nlinarith [sq_nonneg (a^2 - b^2), sq_nonneg (b^2 - c^2), sq_nonneg (c^2 - a^2)]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5927 : 2^2 * 2^2 - 1 = 15   := by
+  norm_num [pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two]

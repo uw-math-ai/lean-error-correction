@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7234 (a b : ℝ) (h : ∀ x : ℝ, (a * x ^ 3 - 7 * x ^ 2 - 10 * x + 24) * (2 * x ^ 5 + 2 * x ^ 4 + b * x ^ 3 + 5 * x ^ 2) = 2 * a * x ^ 8 - 2 * b * x ^ 7 - 24 * x ^ 6 + (b - a) * x ^ 5 - 37 * x ^ 4 + 7 * a * b * x ^ 3 + 12 * a * b * x ^ 2) : a + b = 7   := by
+  linarith [h 0, h 1, h (-1), h 2, h (-2)]

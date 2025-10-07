@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7175 (a b c x y z : ℝ) : x = (4 * a + 2 * b + c) / 7 ∧ y = (a + 4 * b + 2 * c) / 7 ∧ z = (2 * a + b + 4 * c) / 7 ↔ x = (4 * a + 2 * b + c) / 7 ∧ y = (a + 4 * b + 2 * c) / 7 ∧ z = (2 * a + b + 4 * c) / 7   := by
+  exact ⟨fun h ↦ ⟨h.1, h.2.1, h.2.2⟩, fun h ↦ ⟨h.1, h.2.1, h.2.2⟩⟩

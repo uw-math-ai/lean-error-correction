@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3299 (a b c k : ℝ) : (k = (c - a) / (b - a) ∧ k = -((c - a) / (a - b))) → 1 / k = -(a - b) / (c - a)   := by
+  simp (config := { contextual := true }) [div_eq_mul_inv, mul_comm, mul_assoc, mul_left_comm]

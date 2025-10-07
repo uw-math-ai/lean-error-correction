@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3633 (a b c : ℝ) (h₁ : a + b + c = 6) (h₂ : a ^ 2 + b ^ 2 + c ^ 2 = 40) (h₃ : a ^ 3 + b ^ 3 + c ^ 3 = 200) : a ^ 2 * (b + c) + b ^ 2 * (a + c) + c ^ 2 * (a + b) = 40   := by
+  nlinarith [h₁, h₂, h₃]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7163 (a : ℕ → ℝ) (ha : ∀ i, 0 < a i) : ∑ i in Finset.range 6, ((a i) / (a (i + 1) + a (i + 2) + a (i + 3)))^(1 / 4) ≥ 2   := by
+  norm_num [Finset.sum_range_succ, Finset.sum_range_succ, Finset.sum_range_succ, Finset.sum_range_succ, Finset.sum_range_succ, Finset.sum_range_succ]

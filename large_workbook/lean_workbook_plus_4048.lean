@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_4048 : ∀ a b c : ℝ, (2 * a ^ 2 - c ^ 2) ^ 2 + (2 * b ^ 2 - c ^ 2) ^ 2 ≥ 0   := by
+  exact fun a b c ↦ by nlinarith [sq_nonneg (2 * a ^ 2 - c ^ 2), sq_nonneg (2 * b ^ 2 - c ^ 2)]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1478 (a b c : ℝ) (ha : a = 2) (hb : b = 2) (hc : c = 2) : (a - 1) ^ 2 / (a ^ 2 + 2) + (b - 1) ^ 2 / (b ^ 2 + 2) + (c - 1) ^ 2 / (c ^ 2 + 2) = 1 / 2   := by
+  norm_num [ha, hb, hc]

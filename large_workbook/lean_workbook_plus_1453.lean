@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1453 (a b c : ℝ) (ha : a ≥ 0) (hb : b ≥ 0) (hc : c ≥ 0) : a * b * c + (13/3) * (a + b + c) ^ 3 ≥ (25/2) * (a + b) * (b + c) * (c + a)   := by
+  nlinarith [sq_nonneg (a + b + c), sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

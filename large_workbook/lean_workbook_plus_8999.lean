@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8999 (m : ℕ) (hm1 : 2 < m) (hm2 : Odd m) : ∃ n : ℕ, (2^1989 ∣ m^n - 1) ∧ (∀ k : ℕ, (2^1989 ∣ m^k - 1) → n ≤ k)   := by
+  refine' ⟨0, by simp [hm1, hm2], fun k hk ↦ by simpa using hk⟩

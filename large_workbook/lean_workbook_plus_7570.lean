@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7570 (x y z : ℝ) (h : x ^ 2 + y ^ 2 + z ^ 2 = 1) : 1 ≤ x ^ 2 + 2 * y ^ 2 + 3 * z ^ 2 ∧ x ^ 2 + 2 * y ^ 2 + 3 * z ^ 2 ≤ 3   := by
+  constructor <;> nlinarith [sq_nonneg (x - 1), sq_nonneg (y - 1), sq_nonneg (z - 1)]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8484 (f : ℝ × ℝ → ℝ) (a b : ℝ) (g : ℝ → ℝ) (h₁ : f (a, b) = f (a + b, b - a)) (h₂ : g x = f (4^x, 0)) : ∃ c, ∀ x, g (x + c) = g x   := by
+  refine' ⟨0, fun x ↦ by simp [h₂, h₁]⟩

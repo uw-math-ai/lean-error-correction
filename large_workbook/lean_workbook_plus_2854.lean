@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2854 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) (h : a / (1 + b) + b / (1 + c) + c / (1 + a) = 2) : a * b * c ≤ 8   := by
+  nlinarith [ha, hb, hc, habc, h]

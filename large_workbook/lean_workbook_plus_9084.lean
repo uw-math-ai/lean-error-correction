@@ -1,0 +1,3 @@
+theorem lean_workbook_plus_9084 (a b c : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) (hab : a + b^2 + c^2 = 1) : (1 + a^2) * (1 + b^2) * (1 + c^2) ≥ 50 / 27 ∧ (a = 1 / 3 ∧ b = 0 ∧ c = Real.sqrt (2 / 3) ∨ a = 1 / 3 ∧ b = Real.sqrt (2 / 3) ∧ c = 0) ↔ a = 1 / 3 ∧ b = 0 ∧ c = Real.sqrt (2 / 3) ∨ a = 1 / 3 ∧ b = Real.sqrt (2 / 3) ∧ c = 0   := by
+  refine' ⟨fun h => _, fun h => _⟩ <;> aesop
+  all_goals norm_num

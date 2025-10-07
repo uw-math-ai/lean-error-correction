@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1487 (a b : ℝ) : (a^2 * b + a * b^2 - 2 * b^3)^2 + (a^3 - 2 * b^3 + a * b^2)^2 ≥ 0   := by
+  nlinarith [sq_nonneg (a^2 * b + a * b^2 - 2 * b^3), sq_nonneg (a^3 - 2 * b^3 + a * b^2)]

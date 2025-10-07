@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6481 (a : ℝ) : a-1 ∈ {x | x^2 - 2*a*x + a^2 - 1 = 0} ∧ a+1 ∈ {x | x^2 - 2*a*x + a^2 - 1 = 0}   := by
+  constructor <;> simp [sq, sub_eq_add_neg, add_assoc, add_comm, add_left_comm] <;> ring

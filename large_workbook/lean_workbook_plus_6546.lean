@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6546 : 5 ^ 100 ≡ 2 [ZMOD 7] ∧ 5 ^ 100 ≡ 1 [ZMOD 11] ∧ 5 ^ 100 ≡ 1 [ZMOD 13]   := by
+  refine' ⟨by norm_num [pow_succ, pow_zero, Int.ModEq], by norm_num [pow_succ, pow_zero, Int.ModEq], by norm_num [pow_succ, pow_zero, Int.ModEq]⟩

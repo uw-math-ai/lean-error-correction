@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6130 (x y z : ℝ) : 17 * (x + y + z) ^ 4 - 76 * (x + y + z) ^ 2 * (x * y + y * z + z * x) + 4 * (x + y + z) * x * y * z - 24 * (x + y + z) * (x ^ 2 * y + y ^ 2 * z + z ^ 2 * x) + 98 * (x * y + y * z + z * x) ^ 2 ≥ 0   := by
+  nlinarith [sq_nonneg (x + y + z), sq_nonneg (x - y), sq_nonneg (y - z), sq_nonneg (z - x)]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6102 : ∀ f : ℝ → ℝ, ∀ a M : ℝ, (∀ ε : ℝ, ε > 0 → ∃ δ : ℝ, δ > 0 ∧ ∀ x : ℝ, x ∈ Set.Ioo a δ → |f x - M| < ε) ↔ ∀ ε : ℝ, ε > 0 → ∃ δ : ℝ, δ > 0 ∧ ∀ x : ℝ, x ∈ Set.Ioo a δ → |f x - M| < ε   := by
+  exact fun f a M ↦ ⟨fun h ε ε_pos ↦ h ε ε_pos, fun h ε ε_pos ↦ h ε ε_pos⟩

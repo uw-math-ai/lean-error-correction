@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2811 (a b : ℝ) (h : 4 * b^2 - 4 * a ≥ 0) : ∃ x, x^2 + 2 * b * x + a = 0   := by
+  refine' ⟨-(b + Real.sqrt (b^2 - a)), by ring_nf at h ⊢; nlinarith [Real.sq_sqrt (by nlinarith : 0 ≤ b^2 - a)]⟩

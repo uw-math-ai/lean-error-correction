@@ -1,0 +1,3 @@
+theorem lean_workbook_plus_1751 (a b c : ℝ) (ha : 0 < a ∧ a < 1) (hb : 0 < b ∧ b < 1) (hc : 0 < c ∧ c < 1) : (a / (1 - a) + b / (1 - b) + c / (1 - c)) ≥ (3 * (abc)^(1/3)) / (1 - (abc)^(1/3))   := by
+  norm_num [ha.1, ha.2, hb.1, hb.2, hc.1, hc.2]
+  exact add_nonneg (add_nonneg (div_nonneg ha.1.le (sub_nonneg.mpr ha.2.le)) (div_nonneg hb.1.le (sub_nonneg.mpr hb.2.le))) (div_nonneg hc.1.le (sub_nonneg.mpr hc.2.le))

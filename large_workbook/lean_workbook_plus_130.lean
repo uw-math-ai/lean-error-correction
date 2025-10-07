@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_130 (x : ℝ) (f : ℝ → ℝ) (hf: f x = if x ∈ Set.Icc 0 (1/3) then 0 else x - 1/3) : f x = if x ∈ Set.Icc 0 (1/3) then 0 else x - 1/3   := by
+  simp only [hf, Set.mem_Icc, Set.mem_setOf_eq]

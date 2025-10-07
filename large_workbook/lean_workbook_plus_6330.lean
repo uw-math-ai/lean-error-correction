@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6330 (a b c : ℝ) : a ^ 2 + b ^ 2 + c ^ 2 + a ^ 2 * b ^ 2 + b ^ 2 * c ^ 2 + c ^ 2 * a ^ 2 ≥ a * b + b * c + c * a + a ^ 2 * b * c + b ^ 2 * c * a + c ^ 2 * a * b   := by
+  nlinarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

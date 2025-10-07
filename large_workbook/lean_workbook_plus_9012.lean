@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9012 (p : ℕ) (hp : p.Prime) (a : ℕ → ℕ) (h1 : a 0 = 2) (h2 : a 1 = 1) (h3 : ∀ n, a (n + 2) = a (n + 1) + a n) (h4 : ∃ m, p ∣ a (2 * m) - 2) : ∃ m, p ∣ a (2 * m + 1) - 1   := by
+  refine' ⟨0, by simp [h1, h2, h3, h4]⟩

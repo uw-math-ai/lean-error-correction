@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8256 (a b c d : ℝ) (h1 : a > b ∧ b > c ∧ c > d) : a * d + b * c < a * c + b * d ∧ a * c + b * d < a * b + c * d   := by
+  exact ⟨by nlinarith [h1.1, h1.2.1, h1.2.2], by nlinarith [h1.1, h1.2.1, h1.2.2]⟩

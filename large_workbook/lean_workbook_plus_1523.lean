@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1523 (a b c : ℝ) : 13 * a ^ 2 + 10 * b ^ 2 + 5 * c ^ 2 = 4 * a * b + 12 * b * c + 6 * a * c ↔ (2 * a - b) ^ 2 + (3 * b - 2 * c) ^ 2 + (3 * a - c) ^ 2 = 0   := by
+  constructor <;> intro h <;> linarith

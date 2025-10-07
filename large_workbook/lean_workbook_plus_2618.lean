@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2618 : ∀ a b c : ℝ, (a^2 + b^2 + c^2)^2 ≥ (a * (a - b + c) + b * (b - c + a) + c * (c - a + b))^2   := by
+  exact fun a b c ↦ by ring_nf; nlinarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

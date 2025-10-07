@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7339 (n : ℕ) : ∃ u v : ℝ, u = (Real.sqrt 3 + 1) ^ (2 * n) ∧ v = (Real.sqrt 3 - 1) ^ (2 * n)   := by
+  refine' ⟨(Real.sqrt 3 + 1) ^ (2 * n), (Real.sqrt 3 - 1) ^ (2 * n), rfl, rfl⟩

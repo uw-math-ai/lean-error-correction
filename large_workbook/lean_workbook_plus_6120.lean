@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6120 (n : ℕ) : ∑ k in Finset.range (n+1), (n.choose k) * x ^ k = (x + 1) ^ n   := by
+  simp [add_pow, Finset.sum_range_succ, choose_succ_succ, add_mul, mul_add, mul_comm, mul_left_comm]

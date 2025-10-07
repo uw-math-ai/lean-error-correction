@@ -1,0 +1,3 @@
+theorem lean_workbook_plus_4641 :
+  ((15! / (2! * 13!)) * (10! / (9! * 1!))) / (20! / (17! * 3!)) = 21 / 46   := by
+  norm_num [Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ]

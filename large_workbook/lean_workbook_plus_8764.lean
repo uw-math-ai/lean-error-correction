@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8764 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : (a / (5 * a + 2 * b + 2 * c))^(1 / 2) + (b / (5 * b + 2 * a + 2 * c))^(1 / 2) + (c / (5 * c + 2 * a + 2 * b))^(1 / 2) ≥ 1   := by
+  norm_num [ha, hb, hc]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9587 (x y z : ℝ) : x ^ 4 * y ^ 2 * z ^ 2 - x ^ 3 * y ^ 3 * z ^ 2 - y ^ 3 * z ^ 3 * x ^ 2 + y ^ 2 * z ^ 4 * x ^ 2 + x ^ 2 * y ^ 4 * z ^ 2 - x ^ 3 * y ^ 2 * z ^ 3 ≥ 0   := by
+  nlinarith [sq_nonneg (x^2 * y - x * y^2), sq_nonneg (y^2 * z - y * z^2), sq_nonneg (z^2 * x - z * x^2)]

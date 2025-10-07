@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5152 (a b c : ℝ) : (a / (b + c))^(1 / 3) + (b / (c + a))^(1 / 3) + (c / (a + b))^(1 / 3) ≥ 2   := by
+  norm_num [sq_nonneg (a / (b + c) - 1), sq_nonneg (b / (c + a) - 1), sq_nonneg (c / (a + b) - 1)]

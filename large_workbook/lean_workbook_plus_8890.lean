@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8890 (a b c x y z : ℝ) : a + b - c = x ∧ b + c - a = y ∧ c + a - b = z → (x + y) / 2 = b ∧ (z + y) / 2 = c ∧ (x + z) / 2 = a   := by
+  exact fun h ↦ ⟨by linarith [h.1, h.2.1], by linarith [h.1, h.2.2], by linarith [h.1, h.2.1, h.2.2]⟩

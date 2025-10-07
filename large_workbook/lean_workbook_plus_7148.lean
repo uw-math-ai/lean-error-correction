@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7148 : ∃ w x y z : ℕ, w ∈ ({24, 27, 32} : Finset ℕ) ∧ x ∈ ({24, 27, 32} : Finset ℕ) ∧ y ∈ ({24, 27, 32} : Finset ℕ) ∧ z ∈ ({24, 27, 32} : Finset ℕ) ∧ w*x*y*z = 2^11*3^5   := by
+  refine' ⟨24, 27, 32, 24, by norm_num, by norm_num, by norm_num, by norm_num, by norm_num⟩

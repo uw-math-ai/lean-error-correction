@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3175 (x y : ℝ) (n : ℕ) : (x^(2 * n + 2) - y^(2 * n + 2)) = (x^(2 * n) - y^(2 * n)) * x^2 + y^(2 * n) * (x^2 - y^2)   := by
+  simp [pow_add, mul_add, mul_comm, mul_left_comm, sub_eq_add_neg, add_assoc, add_comm, add_left_comm]

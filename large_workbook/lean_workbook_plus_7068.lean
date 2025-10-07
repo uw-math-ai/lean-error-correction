@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7068 (a b c d : ℝ) (hab : a * b * c * d = 1) : 8 + (a^2 + b^2) * (c^2 + d^2) ≥ 3 * (a + b) * (c + d)   := by
+  nlinarith [sq_nonneg (a*c + b*d - 2), sq_nonneg (a*c - b*d), sq_nonneg (a*d - b*c)]

@@ -1,0 +1,3 @@
+theorem lean_workbook_plus_9174 :
+  ((2 : ℝ) * 15 / 24 * (9 / 23)) = 45 / 92   := by
+  norm_num [Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left]

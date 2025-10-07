@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3808 (x y : ℝ) (hx: x = a^2 + b^2 + c^2) (hy: y = a * b + b * c + c * a): (a + b + c) ^ 2 = x + 2 * y ∧ x ≥ y   := by
+  constructor <;> linarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

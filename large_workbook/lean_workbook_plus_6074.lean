@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6074 (a : ℕ → ℝ) (h : ∀ i j k : ℕ, 1 ≤ i ∧ i ≤ j ∧ j ≤ k ∧ k ≤ 100 → a k ^ 2 ≤ a i ^ 2 + a j ^ 2) : ∀ i j k : ℕ, 1 ≤ i ∧ i ≤ j ∧ j ≤ k ∧ k ≤ 100 → a k ^ 2 ≤ a i ^ 2 + a j ^ 2   := by
+  exact fun i j k h' => h i j k ⟨h'.1, h'.2.1, h'.2.2.1, h'.2.2.2⟩

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5763 (a b : ℝ) (ha : 0 < a) (hb : 0 < b) : a^2 * b^2 * (a^2 + b^2 - 2) ≥ (a + b) * (a * b - 1)   := by
+  nlinarith [sq_nonneg (a * b - 1), sq_nonneg (a * b - a), sq_nonneg (a * b - b)]

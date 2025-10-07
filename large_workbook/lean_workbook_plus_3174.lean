@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3174 (a b c: ℝ) : a^2 + b^2 ≥ 2*a*b ∧ b^2 + c^2 ≥ 2*b*c ∧ a^2 + c^2 ≥ 2*a*c   := by
+  refine' ⟨by nlinarith [sq_nonneg (a - b)], by nlinarith [sq_nonneg (b - c)], by nlinarith [sq_nonneg (a - c)]⟩

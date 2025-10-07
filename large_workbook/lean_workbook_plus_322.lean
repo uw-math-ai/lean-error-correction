@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_322 (a b c : ℝ) : a = 5 ∧ b = 3 ∧ c = 7 → (a + b) / (a + b + c) + (b + c) / (b + c + 4 * a) + (c + a) / (c + a + 16 * b) = 16 / 15   := by
+  exact fun h ↦ by norm_num [h.1, h.2.1, h.2.2]

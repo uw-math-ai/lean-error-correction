@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5294 (a b c : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) (habc : a * b * c ≤ 27) : 1 / (1 + a)^(1 / 3) + 1 / (1 + b)^(1 / 3) + 1 / (1 + c)^(1 / 3) ≤ 3 / (1 + (a * b * c)^(1 / 3))^(1 / 3)   := by
+  norm_num [ha, hb, hc, habc]

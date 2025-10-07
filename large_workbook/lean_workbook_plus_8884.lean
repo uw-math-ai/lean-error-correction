@@ -1,0 +1,4 @@
+theorem lean_workbook_plus_8884 (a b c d e : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) (hd : 0 ≤ d) (he : 0 ≤ e) : (a * b + b * c + c * d + d * e + e * a) * (a * c + b * d + e * c + a * d + b * e) - 5 * d * e * c * a - 5 * d * e * a * b - 5 * c * b * d * e - 5 * e * b * c * a - 5 * a * b * c * d = c * e * (a - b) ^ 2 + d * e * (a - c) ^ 2 + b * c * (a - d) ^ 2 + b * d * (a - e) ^ 2 + a * d * (b - c) ^ 2 + a * e * (b - d) ^ 2 + c * d * (b - e) ^ 2 + b * e * (c - d) ^ 2 + a * b * (c - e) ^ 2 + a * c * (d - e) ^ 2   := by
+  nlinarith [sq_nonneg (a - b), sq_nonneg (a - c), sq_nonneg (a - d), sq_nonneg (a - e),
+  sq_nonneg (b - c), sq_nonneg (b - d), sq_nonneg (b - e), sq_nonneg (c - d), sq_nonneg (c - e),
+  sq_nonneg (d - e)]

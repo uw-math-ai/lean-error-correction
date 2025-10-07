@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_910 {a b c : ℝ} : (1 / 2) * ((a - b) ^ 2 * (a + b - c) ^ 2 + (b - c) ^ 2 * (b + c - a) ^ 2 + (c - a) ^ 2 * (c + a - b) ^ 2) ≥ 0   := by
+  nlinarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

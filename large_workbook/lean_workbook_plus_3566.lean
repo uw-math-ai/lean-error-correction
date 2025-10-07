@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3566 (T : ℕ → ℝ) (h₁ : T 0 = 212) (h₂ : ∀ n, T (n + 5) = (T n + 68) / 2) : T 15 = 86   := by
+  linarith [h₂ 0, h₂ 1, h₂ 2, h₂ 3, h₂ 4, h₂ 5, h₂ 6, h₂ 7, h₂ 8, h₂ 9, h₂ 10, h₂ 11, h₂ 12, h₂ 13, h₂ 14]

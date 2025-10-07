@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6101 (7!)/(3!*2!*2!) = 210   := by
+  norm_num [Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ]

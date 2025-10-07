@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3408 (a b c : ℝ) : (a + b - c) * (a - b + c) = 1 / 4 * (6 * (a * b + a * c + b * c) - 5 * (a ^ 2 + b ^ 2 + c ^ 2) + (b + c - 3 * a) ^ 2)   := by
+  linear_combination (a + b - c) * (a - b + c) - (1 / 4) * (6 * (a * b + a * c + b * c) - 5 * (a ^ 2 + b ^ 2 + c ^ 2) + (b + c - 3 * a) ^ 2)

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8547 (a b c : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) (hab : a + b + c = 3) : (a^3 + b^3)^(1 / 4) + (b^3 + c^3)^(1 / 4) + (c^3 + a^3)^(1 / 4) ≥ 3   := by
+  norm_num [ha, hb, hc, hab]

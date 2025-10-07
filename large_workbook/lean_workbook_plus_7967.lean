@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7967 (f g : ℝ → ℝ) (a b : ℝ) (h₁ : a + 3 * b = 12) (h₂ : ∀ x, f x = 3 * x + a) (h₃ : ∀ x, g x = x / 3 + b) : (∃ a b, a + 3 * b = 12 ∧ (∀ x, f x = 3 * x + a) ∧ (∀ x, g x = x / 3 + b))   := by
+  refine' ⟨a, b, h₁, h₂, h₃⟩

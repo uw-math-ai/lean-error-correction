@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1464 (x y z a b c : ℝ) (hx : x = 1 / (1 + a)) (hy : y = 1 / (1 + b)) (hz : z = 1 / (1 + c)) : x ^ 2 + y ^ 2 + z ^ 2 = 1 / (1 + a) ^ 2 + 1 / (1 + b) ^ 2 + 1 / (1 + c) ^ 2   := by
+  simp [hx, hy, hz]

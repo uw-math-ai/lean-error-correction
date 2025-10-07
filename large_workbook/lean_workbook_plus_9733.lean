@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9733 (x y z : ℝ) : (x^4 + y^4 + z^4 + 2 * x^2 * y^2 + 2 * y^2 * z^2 + 2 * z^2 * x^2) ≥ 3 * x * y * z * (x + y + z)   := by
+  nlinarith [sq_nonneg (x + y + z), sq_nonneg (x - y), sq_nonneg (y - z), sq_nonneg (z - x)]

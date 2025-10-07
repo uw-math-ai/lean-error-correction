@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9448 (x y z : ℝ) : 21 + 4 * (x * y + y * z + z * x) + 3 * (x ^ 2 + y ^ 2 + z ^ 2) ≥ 14 * (x + y + z)   := by
+  linarith [sq_nonneg (x + y + z - 3), sq_nonneg (x - y), sq_nonneg (y - z), sq_nonneg (z - x)]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8578 (x y z w : ℝ) (h₁ : w^3 = 0) (h₂ : y = 1) (h₃ : z = 0) : (x - 1)^2 * (x + 1)^2 * (x^2 - x + 1) ≥ 0   := by
+  refine' mul_nonneg (mul_nonneg _ _) _ <;> nlinarith [sq_nonneg (x - 1), sq_nonneg (x + 1)]

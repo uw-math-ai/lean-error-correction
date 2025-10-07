@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5982 (a b c x y z : ℝ) : a = 2 * Real.cos x ∧ b = 2 * Real.cos y ∧ c = 2 * Real.cos z ↔ a = 2 * Real.cos x ∧ b = 2 * Real.cos y ∧ c = 2 * Real.cos z   := by
+  exact ⟨fun h ↦ ⟨h.1, h.2.1, h.2.2⟩, fun h ↦ ⟨h.1, h.2.1, h.2.2⟩⟩

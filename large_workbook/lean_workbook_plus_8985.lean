@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8985 (a b : ℝ) (hab : 0 ≤ a ∧ 0 ≤ b) (habp : a * b + a + b = 3) : 4 ≤ a * b * (a ^ 2 + b ^ 2) + a ^ 3 + b ^ 3 ∧ a * b * (a ^ 2 + b ^ 2) + a ^ 3 + b ^ 3 ≤ 27   := by
+  constructor <;> nlinarith [sq_nonneg (a * b - 1), sq_nonneg (a - b)]

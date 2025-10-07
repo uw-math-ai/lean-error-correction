@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9331 (A : ℝ) : A = 2020 / (1 + 2017 / 2018 + 2017 / 2019) + 2020 / (1 + 2018 / 2017 + 2018 / 2019) + 2020 / (1 + 2019 / 2017 + 2019 / 2018) → A = 2020   := by
+  refine' fun h => h.symm ▸ by norm_num [div_eq_mul_inv, inv_eq_one_div]

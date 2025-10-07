@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5612 (a b n : ℕ) (hab : a ≠ b) (hab2 : a ≠ 0 ∧ b ≠ 0) (hab3 : a * b * n ≠ 0) (hab4 : Nat.gcd a n = 1) (hab5 : Nat.gcd b n = 1) : ∃ t : ℕ, a ^ t ≡ b ^ t [ZMOD n]   := by
+  refine' ⟨0, by simp [hab, hab2, hab3, hab4, hab5]⟩

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5909 (n : ℕ) (a : ℕ → ℤ) (k : ℕ) (h₁ : 1 ≤ k ∧ k ≤ n) : (a (5 * k - 4))^2 + (a (5 * k - 3))^2 + (a (5 * k - 2))^2 + (a (5 * k - 1))^2 + (a (5 * k))^2 ≥ a (5 * k - 4)   := by
+  nlinarith [sq_nonneg (a (5 * k - 4)), sq_nonneg (a (5 * k - 3)), sq_nonneg (a (5 * k - 2)), sq_nonneg (a (5 * k - 1)), sq_nonneg (a (5 * k))]

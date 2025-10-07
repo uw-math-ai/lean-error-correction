@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7988 {a b c d : ℤ} : (a + b + c + d)^4 + (a + b - c - d)^4 + (a - b + c - d)^4 + (a - b - c + d)^4 - (a + b + c - d)^4 - (a + b - c + d)^4 - (a - b + c + d)^4 - ( - a + b + c + d)^4 = 192 * a * b * c * d   := by
+  ring

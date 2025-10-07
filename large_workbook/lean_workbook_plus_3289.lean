@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3289 (x y z : ℝ) (hx : 0 < x) (hy : 0 < y) (hz : 0 < z) : x^2*y + y*z^2 + y^2*x + z*y^2 + x^2*z + z^2*x >= 6*x*y*z   := by
+  nlinarith [sq_nonneg (x - y), sq_nonneg (y - z), sq_nonneg (z - x)]

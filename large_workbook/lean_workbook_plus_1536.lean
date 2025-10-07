@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1536 (x : ℕ → ℝ) : (∃ x_1 x_2 x_3 x_4 :ℝ, x_1 + x_2 * x_3 * x_4 = 2 ∧ x_2 + x_3 * x_4 * x_1 = 2 ∧ x_3 + x_4 * x_1 * x_2 = 2 ∧ x_4 + x_1 * x_2 * x_3 = 2) ↔ (∃ x_1 x_2 x_3 x_4 :ℝ, x_1 + x_2 * x_3 * x_4 = 2 ∧ x_2 + x_3 * x_4 * x_1 = 2 ∧ x_3 + x_4 * x_1 * x_2 = 2 ∧ x_4 + x_1 * x_2 * x_3 = 2)   := by
+  refine' ⟨fun h ↦ h, fun h ↦ h⟩

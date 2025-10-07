@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5799 (a : ℕ → ℚ) (a0 : a 0 = 0) (a1 : a 1 = 1) (a_rec : ∀ n, n ≥ 1 → a (n + 1) = a n + a (n - 1)) : ∃ A B : ℚ, (a 30 + a 29) / (a 26 + a 25) = A + B * Real.sqrt 5 ∧ A + B = 1346269 / 196418   := by
+  refine' ⟨1346269 / 196418, 0, by norm_num [a0, a1, a_rec], by norm_num [a0, a1, a_rec]⟩

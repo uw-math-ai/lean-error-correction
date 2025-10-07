@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2279 (x y z : ℝ) (hx : 0 < x) (hy : 0 < y) (hz : 0 < z) (hxy : x ≤ y) (hyz : y ≤ z) (hzx : z ≤ x) : (3 * x / (x + 2 * y))^(1 / 3) + (3 * y / (y + 2 * z))^(1 / 3) + (3 * z / (z + 2 * x))^(1 / 3) ≤ 3   := by
+  norm_num [hx, hy, hz, hxy, hyz, hzx]

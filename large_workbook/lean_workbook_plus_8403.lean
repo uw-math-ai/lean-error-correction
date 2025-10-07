@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8403 (p : ℝ) (hp₁ : -π/2 ≤ p ∧ p ≤ π/2) (hp₂ : -1 ≤ sin p ∧ sin p ≤ (1 - Real.sqrt 5)/4 ∨ (1 + Real.sqrt 5)/4 ≤ sin p ∧ sin p ≤ 1) : p ∈ Set.Icc (-π/2) (π/2)   := by
+  exact ⟨hp₁.1, hp₁.2⟩

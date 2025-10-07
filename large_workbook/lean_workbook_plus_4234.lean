@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_4234 (a b : ℤ) : (a + b) ^ 2 - a * b ≡ 0 [ZMOD 5] ↔ (2 * a + b) ^ 2 + 3 * b ^ 2 ≡ 0 [ZMOD 5]   := by
+  constructor <;> intro h <;> ring_nf at h ⊢ <;> simp [Int.ModEq] at h ⊢ <;> omega

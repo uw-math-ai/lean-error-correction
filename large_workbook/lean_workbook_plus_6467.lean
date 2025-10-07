@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6467 : (∃ c > 0, ∀ n : ℕ, c - 1 / n < ∑ k in Finset.range n, 1 / k ^ 2 ∧ ∑ k in Finset.range n, 1 / k ^ 2 < c - 1 / (n + 1)) ∨ ¬∃ c > 0, ∀ n : ℕ, c - 1 / n < ∑ k in Finset.range n, 1 / k ^ 2 ∧ ∑ k in Finset.range n, 1 / k ^ 2 < c - 1 / (n + 1)   := by
+  refine' or_not

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_291 (n : ℕ) (hn : 0 < n) (a : Matrix (Fin n) (Fin n) ℝ) (ha : ∀ i j, 0 ≤ a i j) (h : ∀ i, ∑ j, a i j = 1) (a_eig : ∃ v : Fin n → ℝ, ∃ l : ℝ, a.mulVec v = l • v) : ∃ v : Fin n → ℝ, ∃ l : ℝ, a.mulVec v = l • v ∧ l ≤ 1 ∧ -1 ≤ l   := by
+  refine' ⟨0, 0, by simp [ha, h], by norm_num, by norm_num⟩

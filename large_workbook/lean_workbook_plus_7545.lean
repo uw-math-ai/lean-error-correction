@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7545 (a b c : ℝ) : a * a * (a + b) * (a + b) + b * b * (b + c) * (b + c) + c * c * (c + a) * (c + a) + 1 / 2 * (a * a - b * b) * (a * a - b * b) + 1 / 2 * (b * b - c * c) * (b * b - c * c) + 1 / 2 * (c * c - a * a) * (c * c - a * a) ≥ 0   := by
+  nlinarith [sq_nonneg (a + b), sq_nonneg (b + c), sq_nonneg (c + a), sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_4695 8^2 * 9^2 = 5184   := by
+  norm_num [pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two]

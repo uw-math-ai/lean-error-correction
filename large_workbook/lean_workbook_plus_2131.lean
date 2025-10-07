@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2131 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : a^2 * b^2 + b^2 * c^2 + c^2 * a^2 ≤ (a^2 + b^2 + c^2)^2 / 3   := by
+  nlinarith [sq_nonneg (a^2 - b^2), sq_nonneg (b^2 - c^2), sq_nonneg (c^2 - a^2)]

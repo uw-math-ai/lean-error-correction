@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7901 (a b c : ℝ) : (a^2 + b^2)/2 ≥ a * b ∧ (b^2 + c^2)/2 ≥ b * c ∧ (c^2 + a^2)/2 ≥ c * a   := by
+  refine' ⟨by nlinarith [sq_nonneg (a - b)], by nlinarith [sq_nonneg (b - c)], by nlinarith [sq_nonneg (c - a)]⟩

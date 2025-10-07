@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8298 : ∀ x : ℝ, (x - 1) ^ 2 * (x ^ 2 + 1) * (3 * (x + 5 / 6) ^ 2 + 11 / 12) ≥ 0   := by
+  exact fun x ↦ mul_nonneg (mul_nonneg (sq_nonneg (x - 1)) (add_nonneg (sq_nonneg x) zero_le_one)) (by nlinarith)

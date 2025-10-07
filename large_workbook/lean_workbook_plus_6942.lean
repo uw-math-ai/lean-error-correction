@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6942 (b : ℕ → ℕ) (n : ℕ) : (∑ i in Finset.range (n+1), b i * 2 ^ i) = (∑ i in Finset.range (n+1), b i * 2 ^ i)   := by
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, zero_add, pow_zero, mul_one]

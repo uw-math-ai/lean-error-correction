@@ -1,0 +1,3 @@
+theorem lean_workbook_plus_46 :
+  ((4 * 6 + 1) : ℚ) / (6^2 - 1) = 5/7   := by
+  norm_num [Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_left]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6077 (A : Matrix (Fin 4) (Fin 4) ℕ) (hA : A =!![0, 1, 2, 3; 1, 2, 3, 0; 2, 3, 0, 1; 3, 0, 1, 2]) : (∀ B : Matrix (Fin 4) (Fin 4) ℕ, B =!![0, 1, 2, 3; 1, 2, 3, 0; 2, 3, 0, 1; 3, 0, 1, 2] → B = A)   := by
+  simp (config := { contextual := true }) [hA]

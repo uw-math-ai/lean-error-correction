@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2905 (a b c d : ℝ) (ha : 1 ≤ a) (hb : 1 ≤ b) (hc : 1 ≤ c) (habc : a + b + c = 4 - d) : a * b + b * c + c * a ≥ 4 - d ^ 2   := by
+  nlinarith [sq_nonneg (a - 1), sq_nonneg (b - 1), sq_nonneg (c - 1)]

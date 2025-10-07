@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3370 (p : ℕ) (hp : p.Prime) (h2 : p > 2) : 2 ∣ p - 1   := by
+  exact (Nat.Prime.eq_two_or_odd hp).elim (fun h ↦ absurd h2 (by linarith)) (fun h ↦ by rw [← Nat.mod_add_div p 2]; simp [h])

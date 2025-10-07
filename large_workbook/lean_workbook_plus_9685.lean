@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9685 : ∀ p q : ℝ, p > 0 ∧ q > 0 → 25 + 6 * (Real.sqrt (p / q) - Real.sqrt (q / p)) ^ 2 ≥ 25   := by
+  exact fun p q h => by norm_num [sq_nonneg (Real.sqrt (p / q) - Real.sqrt (q / p))]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8327 (x y z : ℝ) (h : (x - 1) ^ 2 + (y - 1) ^ 2 + (z - 1) ^ 2 = 0) : x = 1 ∧ y = 1 ∧ z = 1   := by
+  exact ⟨by nlinarith [sq_nonneg (x - 1), sq_nonneg (y - 1), sq_nonneg (z - 1)], by nlinarith [sq_nonneg (x - 1), sq_nonneg (y - 1), sq_nonneg (z - 1)], by nlinarith [sq_nonneg (x - 1), sq_nonneg (y - 1), sq_nonneg (z - 1)]⟩

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_4350 (f : ℝ → ℝ) (u v : ℝ) (h₁ : v > u) (h₂ : u > 1) (h₃ : f v = 1) (h₄ : f (f u) = -1) : ∃ u v, v > u ∧ u > 1 ∧ f v = 1 ∧ f (f u) = -1   := by
+  refine' ⟨u, v, h₁, h₂, h₃, h₄⟩

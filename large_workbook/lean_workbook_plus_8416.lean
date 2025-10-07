@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8416 {a b c : ℝ} (hx: a > 0 ∧ b > 0 ∧ c > 0) (hab : a + b > c) (hbc : b + c > a) (hca : a + c > b) : 2 * (a * b + b * c + c * a) - a ^ 2 - b ^ 2 - c ^ 2 > 0   := by
+  nlinarith [hx.1, hx.2.1, hx.2.2, hab, hbc, hca]

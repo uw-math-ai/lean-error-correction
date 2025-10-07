@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_490 (a b c : ℝ) : 27 * (a ^ 2 + b ^ 2 + c ^ 2) * (a * b + b * c + c * a) ^ 2 ≥ 81 * a * b * c * (a + b + c) * (a ^ 2 + b ^ 2 + c ^ 2)   := by
+  nlinarith [sq_nonneg (a * b - b * c), sq_nonneg (b * c - c * a), sq_nonneg (c * a - a * b)]

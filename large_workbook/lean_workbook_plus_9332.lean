@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9332 (a b c : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) : 8 * (a + b + c) ^ 3 ≥ (7 * a - b) * (7 * b - c) * (7 * c - a)   := by
+  nlinarith [sq_nonneg (7 * a - b - 7 * b + c), sq_nonneg (7 * b - c - 7 * c + a), sq_nonneg (7 * c - a - 7 * a + b)]

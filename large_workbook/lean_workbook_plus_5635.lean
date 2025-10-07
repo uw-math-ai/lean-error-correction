@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5635 (x ai : ℂ) : (x + ai)^7 = (x^7 + 7 * (ai * x^6) + 21 * (ai^2 * x^5) + 35 * (ai^3 * x^4) + 35 * (ai^4 * x^3) + 21 * (ai^5 * x^2) + 7 * (ai^6 * x) + ai^7) ∧ (x - ai)^7 = (x^7 - 7 * (ai * x^6) + 21 * (ai^2 * x^5) - 35 * (ai^3 * x^4) + 35 * (ai^4 * x^3) - 21 * (ai^5 * x^2) + 7 * (ai^6 * x) - ai^7)   := by
+  refine' ⟨_, _⟩ <;> ring

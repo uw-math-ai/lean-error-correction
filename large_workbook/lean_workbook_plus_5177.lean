@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5177 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : a^3 + b^3 + c^3 + 24 * a * b * c ≤ (a + b + c)^3   := by
+  nlinarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8557 233 - 23 - 14 + 4 = 200   := by
+  simp only [Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le, Nat.sub_eq_zero_of_le]

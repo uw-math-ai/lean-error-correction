@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6901 (a : ℕ → ℝ) (N : ℕ) (hN : ∀ m ≥ N, ∀ k ≥ 0, ∑ i in Finset.range k, |a (m + i)| < ε) : ∀ m ≥ N, ∀ k ≥ 0, ∑ i in Finset.range k, |a (m + i)| < ε   := by
+  exact fun m hm k hk ↦ hN m hm k hk

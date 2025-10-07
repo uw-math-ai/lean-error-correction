@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6994 (a b c : ℝ) (ha : a ^ 2 + b ^ 2 + c ^ 2 = 1) : a * b + b * c + c * a ≥ -1 / 2   := by
+  nlinarith [sq_nonneg (a + b + c), sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

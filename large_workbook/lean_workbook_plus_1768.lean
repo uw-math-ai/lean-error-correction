@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1768 (x y z : ℝ) : x^2 ≥ 2*x-1 ∧ y^4 ≥ 4*y-3 ∧ z^8 ≥ 8*z-7   := by
+  refine' ⟨by nlinarith [sq_nonneg (x - 1)], by nlinarith [sq_nonneg (y - 1), sq_nonneg (y + 1)], by nlinarith [sq_nonneg (z - 1), sq_nonneg (z + 1), sq_nonneg (z^2 - 1), sq_nonneg (z^2 + 1), sq_nonneg (z^4 - 1), sq_nonneg (z^4 + 1)]⟩

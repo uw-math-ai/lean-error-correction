@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_903 (n : ℕ) (h : n % 2 = 0) : ∃ x y, x = 9 * 7 ^ n * 41 ^ (n / 2 - 1) ∧ y = 40 * 7 ^ n * 41 ^ (n / 2 - 1)   := by
+  refine' ⟨9 * 7 ^ n * 41 ^ (n / 2 - 1), 40 * 7 ^ n * 41 ^ (n / 2 - 1), rfl, rfl⟩

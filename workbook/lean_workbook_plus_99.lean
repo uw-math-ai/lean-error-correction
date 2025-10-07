@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_99 (a b c : ℝ) (hab : a ≥ 0 ∧ b ≥ 0 ∧ c ≥ 0) (h : a * b + b * c + c * a > 0) : (a / (b + c))^(1 / 4) + (b / (a + c))^(1 / 4) + (c / (a + b))^(1 / 4) ≥ 2   := by
+  norm_num [hab.1, hab.2.1, hab.2.2, h]

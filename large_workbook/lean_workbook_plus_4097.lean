@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_4097 (R α θ : ℝ) : R^2 * (sin α * (sin (α + θ) * sin (2 * α + θ) - sin θ * sin (3 * α + θ))) = R^2 * (sin α * (sin (α + θ) * sin (2 * α + θ) - sin θ * sin (3 * α + θ)))   := by
+  simp only [add_comm, add_left_comm, add_assoc, mul_comm, mul_left_comm, mul_assoc]

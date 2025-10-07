@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3931 (a b c d : ℝ) (habc : 0 < a ∧ a < 1) (hbd : 0 < b ∧ b < 1) (hcd : 0 < c ∧ c < 1) (hded : 0 < d ∧ d < 1): (1-a)*(1-b)*(1-c)*(1-d) > 1-a-b-c-d   := by
+  nlinarith [mul_pos habc.1 hbd.1, mul_pos habc.1 hcd.1, mul_pos habc.1 hded.1, mul_pos hbd.1 hcd.1, mul_pos hbd.1 hded.1, mul_pos hcd.1 hded.1]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2204 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (hab : a * (1 - b) = 1 / 4) (hbc : b * (1 - c) = 1 / 4) (hca : c * (1 - a) = 1 / 4) : a = b ∧ b = c ∧ c = a   := by
+  exact ⟨by nlinarith [ha, hb, hc, hab, hbc, hca], by nlinarith [ha, hb, hc, hab, hbc, hca], by nlinarith [ha, hb, hc, hab, hbc, hca]⟩

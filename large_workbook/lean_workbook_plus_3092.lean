@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3092 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (hab : a ≥ 3) (hbc : a / 3 + b / 2 ≥ 2) (habc : a / 3 + b / 2 + c ≥ 3) : a ^ 3 + b ^ 3 + c ^ 3 ≥ 36   := by
+  nlinarith [sq_nonneg (a - 3), sq_nonneg (b - 2), sq_nonneg (c - 1)]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_4347 (f : ℕ → ℕ) (hf: f 1 = 1) (hf2: ∀ n, (∀ p, p.Prime ∧ p ∣ n → padicValNat p (f n) = 1)) : ∃ n, ∀ p, p.Prime ∧ p ∣ n → padicValNat p (f n) = 1   := by
+  refine' ⟨1, fun p hp ↦ hf2 1 p hp⟩

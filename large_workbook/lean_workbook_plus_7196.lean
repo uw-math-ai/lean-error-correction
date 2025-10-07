@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7196 (r n : ℕ) (hn : 0 < n) : (∑ i in Finset.range (n + 1), (-1 : ℤ)^i * n.choose i * (n - i)^r) = (∑ i in Finset.range (n + 1), (-1 : ℤ)^i * n.choose i * (n - i)^r)   := by
+  simp only [Finset.sum_range_succ, Finset.sum_range_one, Finset.sum_range_zero]

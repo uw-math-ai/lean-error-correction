@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_4128 (a b c : ℝ) (ha : a ≥ 0) (hb : b ≥ 0) (hc : c ≥ 0) (hab : a + b + c = 3) : (a^2 + ab + b * c)^(1 / 3) + (b^2 + b * c + c * a)^(1 / 3) + (c^2 + c * a + a * b)^(1 / 3) ≥ (3 * (a * b + b * c + c * a))^(1 / 3)   := by
+  norm_num [ha, hb, hc, hab]

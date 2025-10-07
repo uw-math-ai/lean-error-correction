@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1149 (x y : ℝ) (r : ℝ) (hr : r = Real.sqrt (x ^ 2 + y ^ 2)) (hp : -Real.pi < θ ∧ θ ≤ Real.pi) (htr : (x, y) = (r * Real.cos θ, r * Real.sin θ)) : (x, y) = (r * Real.cos θ, r * Real.sin θ) ∧ -Real.pi < θ ∧ θ ≤ Real.pi   := by
+  exact ⟨htr, hp⟩

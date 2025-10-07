@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3184 {x y z : ℝ} : 2*y*(1 + x^2 + y^2 + z^2)*(x^3 + z^3 + x*y*z + x*z) ≤ (y*(1 + x^2 + y^2 + z^2) + 2*(x^3 + z^3 + x*y*z + x*z))^2 / 4   := by
+  nlinarith [sq_nonneg (y * (1 + x^2 + y^2 + z^2) - 2 * (x^3 + z^3 + x * y * z + x * z))]

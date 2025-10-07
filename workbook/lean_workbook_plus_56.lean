@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_56 : sin (π / 4) = cos (π / 4) ∧ sin (π / 4) = 1 / Real.sqrt 2 ∧ cos (π / 4) = 1 / Real.sqrt 2   := by
+  refine ⟨?_,?_,?_⟩ <;> field_simp [Real.sin_pi_div_four, Real.cos_pi_div_four]

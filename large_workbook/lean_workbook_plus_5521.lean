@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5521 : ∀ x y z : ℝ, x ^ 16 + y ^ 16 + z ^ 16 ≥ (x * y) ^ 8 + (y * z) ^ 8 + (z * x) ^ 8   := by
+  exact fun x y z ↦ by nlinarith [sq_nonneg (x^8 - y^8), sq_nonneg (y^8 - z^8), sq_nonneg (z^8 - x^8)]

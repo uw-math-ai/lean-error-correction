@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_415 (x y z : ℝ) (hx : 0 < x) (hy : 0 < y) (hz : 0 < z) (h : x * y * z = 1) : (x ^ 2 + y ^ 2 + z ^ 2) * (x ^ 4 + y ^ 4 + z ^ 4) ≤ 3 * (x ^ 6 + y ^ 6 + z ^ 6)   := by
+  nlinarith [sq_nonneg (x^2 - y^2), sq_nonneg (y^2 - z^2), sq_nonneg (z^2 - x^2)]

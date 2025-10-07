@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1058 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : (c^2 / a / b)^(1 / 3) + (a^2 / b / c)^(1 / 3) + (b^2 / c / a)^(1 / 3) ≥ (2 * c / (a + b))^(1 / 3) + (2 * a / (b + c))^(1 / 3) + (2 * b / (c + a))^(1 / 3)   := by
+  norm_num [ha, hb, hc]

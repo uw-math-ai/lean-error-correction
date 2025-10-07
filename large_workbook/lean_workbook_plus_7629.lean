@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7629 (a b c d : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (hd : 0 < d) : (a + b + c + d) * (a * b + a * c + a * d + b * c + b * d + c * d) ≥ 6 * (a * b * c + b * c * d + c * d * a + d * a * b)   := by
+  nlinarith [sq_nonneg (a - b), sq_nonneg (a - c), sq_nonneg (a - d), sq_nonneg (b - c), sq_nonneg (b - d), sq_nonneg (c - d)]

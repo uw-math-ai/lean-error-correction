@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5842 (Nat.choose 16 2 * Nat.choose 14 2 * Nat.choose 12 2 * Nat.choose 10 2 * Nat.choose 8 2 * Nat.choose 6 2 * Nat.choose 4 2 * Nat.choose 2 2) = 81729648000   := by
+  conv => lhs; rw [← Nat.mod_add_div 16 2, ← Nat.mod_add_div 14 2, ← Nat.mod_add_div 12 2, ← Nat.mod_add_div 10 2, ← Nat.mod_add_div 8 2, ← Nat.mod_add_div 6 2, ← Nat.mod_add_div 4 2, ← Nat.mod_add_div 2 2]

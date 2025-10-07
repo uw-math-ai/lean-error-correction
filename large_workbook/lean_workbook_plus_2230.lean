@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2230 (a b c : ℝ) : (a + b) ^ 4 + (b + c) ^ 4 + (c + a) ^ 4 ≥ 8 * (a ^ 3 * (b + c) + b ^ 3 * (c + a) + c ^ 3 * (a + b))   := by
+  nlinarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

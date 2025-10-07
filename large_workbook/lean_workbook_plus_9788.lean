@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9788 (a b : ℝ) (ha : 0 < a) (hb : 0 < b) : (a / (a + 7 * b))^(1 / 3) + (b / (b + 7 * a))^(1 / 3) ≥ (a / (a + 3 * b))^(1 / 2) + (b / (b + 3 * a))^(1 / 2) ∧ (a / (a + 3 * b))^(1 / 2) + (b / (b + 3 * a))^(1 / 2) ≥ 1   := by
+  refine' ⟨by norm_num [ha, hb], by norm_num [ha, hb]⟩

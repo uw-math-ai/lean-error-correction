@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2022 (a b c u v w : ℝ) (h : a + b + c ≥ a * b * c) : (u + v + w) ^ 2 ≥ 3 * (u * v + v * w + w * u)   := by
+  nlinarith [sq_nonneg (u - v), sq_nonneg (v - w), sq_nonneg (w - u)]

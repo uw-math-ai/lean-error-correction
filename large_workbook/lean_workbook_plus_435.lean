@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_435 (a b c : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) : (a^2 + b^2 - c^2) * (a - b)^2 + (b^2 + c^2 - a^2) * (b - c)^2 + (c^2 + a^2 - b^2) * (c - a)^2 ≥ 0   := by
+  nlinarith [sq_nonneg (a + b - c), sq_nonneg (b + c - a), sq_nonneg (c + a - b)]

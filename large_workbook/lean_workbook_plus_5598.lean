@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5598 (x y : ℝ) (hx : 0 ≤ x) (hy : 0 ≤ y) : (x + y) * (x - y) ^ 2 + 2 * (x - 1) * (y - 1) ≥ 0   := by
+  nlinarith [sq_nonneg (x + y), sq_nonneg (x - y), sq_nonneg (x - 1), sq_nonneg (y - 1)]

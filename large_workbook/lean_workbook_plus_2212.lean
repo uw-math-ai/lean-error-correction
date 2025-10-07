@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2212 (x : ℝ) (k : ℤ) : (x < ⌊x⌋ + 1) ∧ (⌈x⌉ < x + 1) ∧ (⌊k + x⌋ = k + ⌊x⌋) ∧ (⌊x⌋ = -⌈-x⌉) ∧ (⌈x⌉ = -⌊-x⌋)   := by
+  refine' ⟨by linarith [Int.floor_le x, Int.lt_floor_add_one x], by linarith [Int.le_ceil x, Int.ceil_lt_add_one x], by simp [Int.floor_add_int], by simp [Int.floor_neg, Int.ceil_neg], by simp [Int.ceil_neg, Int.floor_neg]⟩

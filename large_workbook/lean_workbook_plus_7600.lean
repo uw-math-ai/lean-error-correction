@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7600 {x y : ℝ} (k : ℕ) (h : 0 < k) (h1 : (↑k * x) % 1 = (↑k * y) % 1) (h2 : ((↑k + 1) * x) % 1 = ((↑k + 1) * y) % 1) (n : ℕ) (hn : 0 < n) : (↑n * x) % 1 = (↑n * y) % 1   := by
+  induction n <;> simp [*, Nat.succ_eq_add_one, mul_add, mul_one, add_assoc, add_comm, add_left_comm]

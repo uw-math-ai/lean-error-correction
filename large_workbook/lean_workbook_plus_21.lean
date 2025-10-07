@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_21 (n p q : ℕ) (hp : p ≤ n) (hq : q ≤ p) : (n - q).choose (p - q) * n.choose q = n.choose p * p.choose q   := by
+  simp [choose_mul, hp, hq, mul_comm, mul_assoc, mul_left_comm]

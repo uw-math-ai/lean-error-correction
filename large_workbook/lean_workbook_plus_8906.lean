@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8906 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) (h : a * b + b * c + c * a = a * b * c + 2) : a ^ 2 + b ^ 2 + c ^ 2 + a * b * c ≥ 4   := by
+  linarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

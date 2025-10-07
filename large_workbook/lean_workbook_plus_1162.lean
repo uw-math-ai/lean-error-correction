@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1162 : ∀ x y z : ℝ, 28 * (x ^ 4 + y ^ 4 + z ^ 4) ≥ (x + y + z) ^ 4 + (y + z - x) ^ 4 + (z + x - y) ^ 4 + (x + y - z) ^ 4   := by
+  refine' fun x y z => by linarith [sq_nonneg (x^2 - y^2), sq_nonneg (y^2 - z^2), sq_nonneg (z^2 - x^2)]

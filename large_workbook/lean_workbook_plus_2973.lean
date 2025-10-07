@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2973 (a b c: ℝ) (ha : a ≥ 0) (hb : b ≥ 0) (hc : c ≥ 0) : a^3 + b^3 + c^3 ≥ a^2 * b + b^2 * c + c^2 * a   := by
+  nlinarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

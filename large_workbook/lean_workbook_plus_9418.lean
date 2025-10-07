@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9418 (f : ℝ → ℝ) (p L : ℝ) : (∀ ε > 0, ∃ δ > 0, ∀ x, x ∈ Set.Ioo p δ → |f x - L| < ε) → ∀ ε > 0, ∃ δ > 0, ∀ x, x ∈ Set.Ioo p δ → |f x| - |L| < ε   := by
+  exact fun h ε hε ↦ (h ε hε).imp fun δ h ↦ ⟨h.1, fun x hx ↦ by nlinarith [abs_sub_abs_le_abs_sub (f x) L, h.2 x hx]⟩

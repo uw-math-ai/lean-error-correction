@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_364 (n : ℕ) (hA: A = ({0,1,2,3,4,5,6,7,8,9} : Finset ℕ)) (hn: n ∈ A) : ∃ m, m % 10 = 9 ∧ m % 9 = 8 ∧ m % 8 = 7 ∧ m % 7 = 6 ∧ m % 6 = 5 ∧ m % 5 = 4 ∧ m % 4 = 3 ∧ m % 3 = 2 ∧ m % 2 = 1   := by
+  exact ⟨9 * 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 - 1, by decide⟩

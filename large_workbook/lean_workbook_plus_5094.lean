@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5094 : a * b * c = 1 → (1 / (a ^ 2 + 2 * b ^ 2 + 3) + 1 / (b ^ 2 + 2 * c ^ 2 + 3) + 1 / (c ^ 2 + 2 * a ^ 2 + 3)) ≤ 1 / 2   := by
+  simp (config := { contextual := true }) [Nat.div_eq_of_eq_mul_left, Nat.div_eq_of_eq_mul_right]

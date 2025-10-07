@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1563 (a b c d : ℤ) (h1 : a + d - b - c ∣ ab + bd - b^2 - bc) (h2 : a + d - b - c ∣ ab - cd) : a + d - b - c ∣ (ab + bd - b^2 - bc) - (ab - cd)   := by
+  convert dvd_sub h1 h2 using 1

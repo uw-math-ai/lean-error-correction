@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9560 (x y z : ℝ) (h₁ : x + y + z = 6) (h₂ : x * y + y * z + z * x = 9) : 0 ≤ x ∧ x ≤ 4 ∧ 0 ≤ y ∧ y ≤ 4 ∧ 0 ≤ z ∧ z ≤ 4   := by
+  refine' ⟨_, _, _, _, _, _⟩ <;> nlinarith [sq_nonneg (x - y), sq_nonneg (y - z), sq_nonneg (z - x)]

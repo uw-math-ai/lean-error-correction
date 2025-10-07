@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8523 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : (a^3 / (b + c))^(1 / 9) + (b^3 / (c + a))^(1 / 9) + (c^3 / (a + b))^(1 / 9) ≥ (1 / (2^(1 / 9))) * ((a * b)^(1 / 9) + (b * c)^(1 / 9) + (c * a)^(1 / 9))   := by
+  norm_num [ha, hb, hc]

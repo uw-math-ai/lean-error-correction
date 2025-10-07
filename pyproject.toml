@@ -1,0 +1,24 @@
+[project]
+name = "lean_verifier"
+version = "0.1.0"
+description = "A pipeline for verifying Lean files and analyzing proofs."
+requires-python = ">=3.8"
+dependencies = [
+    "lean-interact>=0.8.0",
+    "tomli",
+]
+
+[tool.lean_verifier]
+lean_version = "v4.22.0-rc4"
+source_dir = "workbook"
+output_dir = "data"
+num_processes = 2
+theorem_cache_file = "theorem_cache.json"
+theorem_pairs_file = "data/theorem_pairs.jsonl"
+expanded_pairs_file = "data/theorem_pairs_expanded.jsonl"
+incorrect_proofs_file = "data/correct_incorrect_pairs.jsonl"
+annotated_proofs_file = "data/annotated_proofs.jsonl" 
+excluded_proofs_file = "data/excluded_proofs.jsonl" 
+
+[tool.lean_verifier.api_keys]
+lean_explore = "APIKEY"

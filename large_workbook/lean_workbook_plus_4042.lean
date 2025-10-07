@@ -1,0 +1,3 @@
+theorem lean_workbook_plus_4042 :
+  (3 / 4)^3 * (1 / 4)^2 / (2^5 / 4^5 + 3 / 4 * (1 / 4)^2 * (3 / 4)^3) = 27 / 59   := by
+  norm_num [pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_4940 (x y z : ℝ) (h₁ : x + y + z = 3) (h₂ : x*y + y*z + z*x = 3) : x = 1 ∧ y = 1 ∧ z = 1   := by
+  refine' ⟨_, _, _⟩ <;> nlinarith [sq_nonneg (x - 1), sq_nonneg (y - 1), sq_nonneg (z - 1)]

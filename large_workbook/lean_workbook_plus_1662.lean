@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1662 {a b c d : ℝ} : (a + c) * (c + d) * (d + b) * (b + a) ≥ (a + b + c + d) * (a * b * c + b * c * d + c * d * a + d * a * b) ∧ (a + c) * (c + b) * (b + d) * (d + a) ≥ (a + b + c + d) * (a * b * c + b * c * d + c * d * a + d * a * b)   := by
+  refine ⟨by nlinarith [sq_nonneg (a * b - c * d), sq_nonneg (a * c - b * d), sq_nonneg (a * d - b * c)], by nlinarith [sq_nonneg (a * b - c * d), sq_nonneg (a * c - b * d), sq_nonneg (a * d - b * c)]⟩

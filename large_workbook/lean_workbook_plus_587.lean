@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_587 : 477 / 27 < 18 ∧ 18 ^ 3 < 2001 ^ 2   := by
+  norm_num [div_lt_iff, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ]

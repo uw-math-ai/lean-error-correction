@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3982 (a b c : ℝ) : (a + b + c) * (a ^ 2 + b ^ 2 + c ^ 2) ≥ 3 * (a ^ 2 * b + b ^ 2 * c + c ^ 2 * a) ↔ a * (a - b) ^ 2 + b * (b - c) ^ 2 + c * (c - a) ^ 2 ≥ 0   := by
+  constructor <;> intro h <;> linarith

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7128 : 9! / (5 * 4 * 3 * 4 * 3 * 2 * 3 * 2 * 1) = 42   := by
+  norm_num [Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ, Nat.factorial_succ]

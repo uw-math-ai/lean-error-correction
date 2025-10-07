@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8780 (x y z a b c : ℝ) (hx : x = a + b) (hy : y = b + c) (hz : z = c + a) (hab : a > 0 ∧ b > 0 ∧ c > 0) : a^3 + b^3 + c^3 + a^2 * b + b^2 * c + c^2 * a >= 2 * (a * b^2 + b * c^2 + c * a^2)   := by
+  nlinarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - a)]

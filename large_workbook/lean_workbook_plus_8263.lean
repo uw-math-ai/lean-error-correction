@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8263 (n p : ℤ) : (2 * Real.sqrt (143 * n ^ 2 + 864 * n + 1081) = p ^ 2 - 24 * n - 70) ↔ (2 * Real.sqrt (143 * n ^ 2 + 864 * n + 1081) = p ^ 2 - 24 * n - 70)   := by
+  exact ⟨fun h ↦ h, fun h ↦ h⟩

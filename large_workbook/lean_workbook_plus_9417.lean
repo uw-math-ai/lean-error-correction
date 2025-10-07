@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9417 (f : ℕ → ℝ → ℝ) (f_lim : ℝ → ℝ) (hf : ∀ x, ∀ ε > 0, ∃ N : ℕ, ∀ n ≥ N, |f n x - f_lim x| < ε) : ∀ x, ∀ ε > 0, ∃ N : ℕ, ∀ n ≥ N, |f n x - f_lim x| < ε   := by
+  exact fun x ε ε_pos ↦ hf x ε ε_pos

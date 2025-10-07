@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3012 (m n : ℕ) (x : Fin m → ℕ) (y : Fin n → ℕ) (h₁ : m ≤ n) (h₂ : ∑ i, x i < ∑ j, y j) : ∃ A B, A ⊆ Finset.univ ∧ B ⊆ Finset.univ ∧ ∑ i in A, x i = ∑ j in B, y j   := by
+  refine' ⟨∅, ∅, by simp, by simp, by simp [h₂]⟩

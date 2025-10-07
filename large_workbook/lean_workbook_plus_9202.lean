@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9202 (a b c d : ℝ) (hab : a ≥ -1) (hbc : b ≥ -1) (hcd : c ≥ -1) (hda : d ≥ -1) : a^3 + b^3 + c^3 + d^3 ≥ (3/4 : ℝ) * (a + b + c + d) - 1   := by
+  nlinarith [sq_nonneg (a - 1/2), sq_nonneg (b - 1/2), sq_nonneg (c - 1/2), sq_nonneg (d - 1/2)]

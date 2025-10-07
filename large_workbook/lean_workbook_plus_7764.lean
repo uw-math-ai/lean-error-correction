@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7764 (a b c d e f : ℝ) (hab : a = 1) (hbc : b = 2) (hcd : c = 3) (hde : d = 3) (hef : e = 2) (haf : f = 1) : a + b + c + d + e + f = 12   := by
+  linarith [hab, hbc, hcd, hde, hef, haf]

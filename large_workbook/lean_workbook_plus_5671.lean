@@ -1,0 +1,3 @@
+theorem lean_workbook_plus_5671 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) : a^3 * b + b^3 * c + c^3 * a >= a^(7 / 4) + b^(7 / 4) + c^(7 / 4) + 16 * (a^(1 / 4) + b^(1 / 4) + c^(1 / 4)) * (a^(1 / 4) - b^(1 / 4))^2 * (a^(1 / 4) - c^(1 / 4))^2 * (b^(1 / 4) - c^(1 / 4))^2   := by
+  simp [ha, hb, hc, habc]
+  nlinarith [sq_nonneg (a^2 * b - 1), sq_nonneg (b^2 * c - 1), sq_nonneg (c^2 * a - 1)]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_2475 (A : ℝ → ℝ) (x : ℝ) (hx: x ≠ 2) (hA: A x = (2^x+3^x)/(5^(x/2)+2^(x+1))) (hA2: A 2 = 1): ∃ L, ∀ ε : ℝ, ε > 0 → ∃ δ : ℝ, δ > 0 ∧ ∀ x : ℝ, x ∈ Set.Ioo 2 δ → |e^((Real.log (A x) - Real.log (A 2)) / (2 - x)) - L| < ε   := by
+  refine' ⟨1, fun ε ε0 => ⟨1, by norm_num⟩⟩

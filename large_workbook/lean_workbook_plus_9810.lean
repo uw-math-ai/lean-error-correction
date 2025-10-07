@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9810 : ∀ x y z : ℝ, x ^ 4 + y ^ 4 + z ^ 4 - 2 * y ^ 2 * z ^ 2 - 2 * z ^ 2 * x ^ 2 - 2 * x ^ 2 * y ^ 2 = -(x + y + z) * (y + z - x) * (z + x - y) * (x + y - z)   := by
+  exact fun x y z ↦ by ring

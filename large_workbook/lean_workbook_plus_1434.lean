@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1434 (a b c : ℝ) (ha : a ≥ 0 ∧ b ≥ 0 ∧ c ≥ 0) (hab : a + b + c = a^3 + b^3 + c^3) : a^2 + b^2 + c^2 ≤ 3   := by
+  nlinarith [sq_nonneg (a - 1), sq_nonneg (b - 1), sq_nonneg (c - 1)]

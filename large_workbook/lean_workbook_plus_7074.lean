@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7074 (a b c d : ℝ) : a ^ 4 + b ^ 4 + c ^ 4 + d ^ 4 + a ^ 2 * b ^ 2 + b ^ 2 * c ^ 2 + c ^ 2 * d ^ 2 + d ^ 2 * a ^ 2 ≥ 2 * (a ^ 3 * b + b ^ 3 * c + c ^ 3 * d + a * d ^ 3)   := by
+  nlinarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (c - d), sq_nonneg (d - a)]

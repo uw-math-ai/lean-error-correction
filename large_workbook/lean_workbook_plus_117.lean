@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_117 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : (4 * a * b * (a + b))^(1 / 110) + (4 * b * c * (b + c))^(1 / 110) + (4 * c * a * (c + a))^(1 / 110) ≤ 3 * ((a + b) * (b + c) * (c + a))^(1 / 110)   := by
+  norm_num [ha, hb, hc]

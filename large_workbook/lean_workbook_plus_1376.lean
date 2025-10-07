@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1376 (n : ℕ) (a : ℕ → ℕ) (h : ∀ i, 1 ≤ a i) : 2 ^ (n - 1) * (1 + ∏ i in Finset.range n, a i) - ∏ i in Finset.range n, (1 + a i) ≥ 0   := by
+  induction n <;> simp [Finset.prod_range_succ, h, *] <;> nlinarith

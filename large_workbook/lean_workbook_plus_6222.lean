@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6222 (a b c : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) : a^3 + b^3 + c^3 + 6 * a * b * c ≥ (a + b + c)^3 / 4   := by
+  nlinarith [sq_nonneg (a - (b + c)), sq_nonneg (b - (a + c)), sq_nonneg (c - (a + b))]

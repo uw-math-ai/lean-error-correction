@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5108 (a b c : ℝ) (h : a^2 + b^2 + c^2 = 1) : a^2 <= 1 ∧ b^2 <= 1 ∧ c^2 <= 1   := by
+  refine' ⟨by nlinarith [sq_nonneg a, sq_nonneg b, sq_nonneg c], by nlinarith [sq_nonneg a, sq_nonneg b, sq_nonneg c], by nlinarith [sq_nonneg a, sq_nonneg b, sq_nonneg c]⟩

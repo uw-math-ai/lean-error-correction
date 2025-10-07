@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_5846 (A B C : ℝ) (hA : 0 < A ∧ A < Real.pi / 2) (hB : 0 < B ∧ B < Real.pi / 2) (hC : 0 < C ∧ C < Real.pi / 2) : 0 < Real.cos A ∧ Real.cos A <= 1 ∧ 0 < Real.cos B ∧ Real.cos B <= 1 ∧ 0 < Real.cos C ∧ Real.cos C <= 1   := by
+  exact ⟨Real.cos_pos_of_mem_Ioo ⟨by linarith, by linarith⟩, Real.cos_le_one A, Real.cos_pos_of_mem_Ioo ⟨by linarith, by linarith⟩, Real.cos_le_one B, Real.cos_pos_of_mem_Ioo ⟨by linarith, by linarith⟩, Real.cos_le_one C⟩

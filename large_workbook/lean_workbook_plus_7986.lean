@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_7986 (h : 1 / 3 * (1 / 7 + 3 / 14 + 5 / 21) = 5 / 12) : 1 / 3 * (1 / 7 + 3 / 14 + 5 / 21) = 5 / 12   := by
+  simp [h, show (3 : ℝ) ≠ 0 by norm_num, show (7 : ℝ) ≠ 0 by norm_num, show (14 : ℝ) ≠ 0 by norm_num, show (21 : ℝ) ≠ 0 by norm_num]

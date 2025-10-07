@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_3345 : (5:ℝ)^51 ≥ 2^118   := by
+  norm_num [pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ, pow_succ]

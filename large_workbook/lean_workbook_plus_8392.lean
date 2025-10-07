@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8392 (x y z : ℝ) : (x ^ 3 * y + y ^ 3 * z + z ^ 3 * x) * (x * y + y * z + z * x) ≥ (x + y + z) * x * y * z * (x ^ 2 + y ^ 2 + z ^ 2)   := by
+  nlinarith [sq_nonneg (x^2 - y * z), sq_nonneg (y^2 - z * x), sq_nonneg (z^2 - x * y)]

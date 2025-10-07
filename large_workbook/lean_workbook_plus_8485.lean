@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_8485 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) (h : a^2 + b^2 + c^2 + (3 / 2) * a * b * c = 9 / 2) : a + b + c ≤ 3   := by
+  linarith [sq_nonneg (a - 1), sq_nonneg (b - 1), sq_nonneg (c - 1)]

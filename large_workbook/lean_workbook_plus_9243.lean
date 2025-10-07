@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_9243 a^2 * b * c + a * b^2 * c + a * b * c^2 + 1 - b * c - a * c - a * b - a^2 * b^2 * c^2 = -(b * c - 1) * (a * c - 1) * (a * b - 1)   := by
+  linarith [a^2 * b * c + a * b^2 * c + a * b * c^2 + 1 - b * c - a * c - a * b - a^2 * b^2 * c^2]

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1834 : 4^(37) + 4^(1000) + 4^(1962) = (2^(1962) + 2^(37))^2   := by
+  norm_num [pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two, pow_two]

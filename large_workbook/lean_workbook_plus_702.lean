@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_702 (A B C : ℕ) (hA : A ≠ 0) (hB : B ≠ 0) (hC : C ≠ 0) (hABC : Nat.Coprime A B) (hABC' : Nat.Coprime A C) (hABC'' : Nat.Coprime B C) : ∃ x y z : ℕ, x^A + y^B = z^C   := by
+  refine' ⟨0, 0, 0, by simp [hA, hB, hC, hABC, hABC', hABC'']⟩

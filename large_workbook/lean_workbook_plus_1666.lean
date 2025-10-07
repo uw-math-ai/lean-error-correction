@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_1666 (n : ℕ) (f : ℕ → ℕ) (h₀ : f 0 = 3) (h₁ : f 1 = 3) (h₂ : ∀ n, f (n + 2) = 2 * f (n + 1) - f n + n) : ∃ g : ℕ → ℕ, ∀ n, f n = g n   := by
+  refine' ⟨fun n ↦ f n, fun n ↦ rfl⟩

@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_6063 {n : ℕ} {T : ℕ → ℕ} (h₁ : 4 * T (n - 2) + 2 * T (n - 1) + 2 * T n = 2 * T (n - 1) + T n + T (n + 1)) : 4 * T (n - 2) + 2 * T (n - 1) + 2 * T n = 2 * T (n - 1) + T n + T (n + 1)   := by
+  simpa [h₁] using h₁

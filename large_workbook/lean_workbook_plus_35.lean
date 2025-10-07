@@ -1,0 +1,2 @@
+theorem lean_workbook_plus_35 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (hab : a + b + c = 3) : b^(2/3) * c^(2/3) + c^(2/3) * a^(2/3) + a^(2/3) * b^(2/3) ≤ 3   := by
+  norm_num [ha, hb, hc, hab]
