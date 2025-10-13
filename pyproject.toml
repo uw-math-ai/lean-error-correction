@@ -19,6 +19,15 @@ expanded_pairs_file = "data/theorem_pairs_expanded.jsonl"
 incorrect_proofs_file = "data/correct_incorrect_pairs.jsonl"
 annotated_proofs_file = "data/annotated_proofs.jsonl" 
 excluded_proofs_file = "data/excluded_proofs.jsonl" 
+explained_proofs_file = "data/explained_proofs.jsonl"
+sft_dataset_file = "data/sft_dataset.jsonl"
+
+[tool.lean_verifier.explanation_model]
+model_name = "gpt-4o-mini"
+temperature = 0.2
+max_tokens = 600
+timeout_seconds = 60
 
 [tool.lean_verifier.api_keys]
 lean_explore = "APIKEY"
+openai = "APIKEY"

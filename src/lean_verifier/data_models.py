@@ -50,3 +50,23 @@ class ProofPair:
     def to_dict(self):
         """Converts the instance back to a dictionary."""
         return asdict(self)
+
+@dataclass
+class AnnotatedProof(ProofPair):
+    """
+    Represents an incorrect proof that has been annotated with error
+    information from the Lean server. Inherits from ProofPair.
+    """
+    error: str
+    line_at_error: str
+    state_at_error: str
+
+
+@dataclass
+class ExplainedProof(AnnotatedProof):
+    """
+    Represents an annotated proof that has been explained by an AI.
+    Inherits from AnnotatedProof.
+    """
+    explanation: str
+    fix_suggestion: str
