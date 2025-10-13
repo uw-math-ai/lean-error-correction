@@ -29,5 +29,5 @@ max_tokens = 600
 timeout_seconds = 60
 
 [tool.lean_verifier.api_keys]
-lean_explore = "APIKEY"
-openai = "APIKEY"
+lean_explore = "APIKEY-HERE"
+openai = "APIKEY-HERE"
