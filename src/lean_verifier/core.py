@@ -2,6 +2,7 @@
 
 import os
 import tempfile
+import re # <-- Added import
 from lean_interact import AutoLeanServer, FileCommand, LeanREPLConfig, Command
 from .data_models import LeanFile, ProofPair
 
@@ -60,14 +61,27 @@ def annotate_proof_worker(config: LeanREPLConfig, proof_pair: ProofPair) -> tupl
             return ('excluded', output_data)
         else:
             first_error = error_messages[0]
-            # The error line number from the server includes the "import Mathlib" line we added
+            # The error line number from the server is 1-indexed
             error_line_num = first_error.start_pos.line
             
             lines = code_to_verify.strip().split('\n')
             
-            # Construct a partial proof to get the state at the error line
-            partial_proof_lines = lines[:error_line_num]
-            command_str = "\n".join(partial_proof_lines) + "\n  sorry"
+            # We want the proof state *before* the failing line.
+            # The failing line is at index (error_line_num - 1).
+            # So, we slice *up to* that index.
+            partial_proof_lines = lines[:error_line_num - 1]
+            
+            # Get indentation from the last valid line to apply to 'sorry'
+            indent = "  " # Default 2-space indent
+            if partial_proof_lines:
+                last_line = partial_proof_lines[-1]
+                # Find all leading whitespace
+                match = re.match(r"^(\s*)", last_line)
+                if match:
+                    # Use the same indentation as the line before
+                    indent = match.group(1)
+
+            command_str = "\n".join(partial_proof_lines) + f"\n{indent}sorry"
             
             # Use `Command` to run a string of code
             state_command = Command(cmd=command_str)
@@ -76,6 +90,7 @@ def annotate_proof_worker(config: LeanREPLConfig, proof_pair: ProofPair) -> tupl
             state_at_error = state_result.sorries[0].goal if state_result.sorries else "Could not retrieve proof state."
 
             output_data['error'] = first_error.data
+            # The line at the error is at index (error_line_num - 1)
             output_data['line_at_error'] = lines[error_line_num - 1].strip()
             output_data['state_at_error'] = state_at_error
             
