@@ -21,6 +21,10 @@ annotated_proofs_file = "data/annotated_proofs.jsonl"
 excluded_proofs_file = "data/excluded_proofs.jsonl" 
 explained_proofs_file = "data/explained_proofs.jsonl"
 sft_dataset_file = "data/sft_dataset.jsonl"
+line_mutation_input_file = "data/line_mutation_input.jsonl"
+dubious_proofs_file = "data/dubious_proofs.jsonl"
+dubious_filter_input_file = "data/dubious_filter_input.jsonl"
+line_mutation_pairs_file = "data/line_mutation_pairs.jsonl"
 
 [tool.lean_verifier.explanation_model]
 model_name = "gpt-4o-mini"

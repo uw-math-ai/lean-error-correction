@@ -1,6 +1,7 @@
 import asyncio
 import json
 import shutil
+import os
 
 from lean_verifier.config import settings
 from aiolimiter import AsyncLimiter
@@ -40,13 +41,14 @@ async def main_async():
                 if outcome[0] == "fail":
                     out_file.write(json.dumps({
                             "correct_proof": line["correct_proof"],
-                            "incorrect_proof": line["dubious_proof"]
+                            "incorrect_proof": line["dubious_proof"],
+                            "infoview": outcome[1].messages
                         }) + "\n")
             except Exception as e:
                 with open(settings.dubious_filter_input_file, 'w') as in_file_w:
                     in_file_w.writelines(in_lines)
                 raise e
-    settings.dubious_filter_input_file.open('w')
+    os.remove(settings.dubious_filter_input_file)
 
 
 def main():

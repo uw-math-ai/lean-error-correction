@@ -2,6 +2,7 @@
 import shutil
 import asyncio
 import json
+import os
 
 from lean_verifier.mutation_generator import generate_model_replaces_line_mutation_for_record, RATE_LIMIT
 from lean_verifier.config import settings
@@ -36,7 +37,7 @@ async def main_async():
                 with open(settings.line_mutation_input_file, 'w') as in_file_w:
                     in_file_w.writelines(in_lines)
                 raise e
-    settings.line_mutation_input_file.open('w')
+    os.remove(settings.line_mutation_input_file)
 
 
 def main():

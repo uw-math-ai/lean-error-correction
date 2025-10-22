@@ -11,7 +11,7 @@ src_path = project_root / "src"
 sys.path.append(str(src_path))
 
 from lean_verifier.config import settings
-from lean_verifier.mutation_generator import generate_mutation_for_record, RATE_LIMIT
+from lean_verifier.mutation_generator import generate_similar_theorem_mutation_for_record, RATE_LIMIT
 from aiolimiter import AsyncLimiter
 
 def load_processed_keys(output_file: Path) -> set:
@@ -57,13 +57,16 @@ async def main_async():
             records_to_process.append(json.loads(line))
 
     if args.resume:
-        print("Resume flag detected. Checking for already processed records...")
-        processed_keys = load_processed_keys(settings.incorrect_proofs_file)
-        records_to_process = [
-            r for r in records_to_process 
-            if (r.get('path'), r.get('src_hash'), r.get('theorem')) not in processed_keys
-        ]
-        print(f"Found {len(processed_keys)} processed records. Skipping them.")
+        if not settings.incorrect_proofs_file.exists():
+            print(f"Resume flag detected, but {settings.incorrect_proofs_file} does not exist. Starting from scratch.")
+        else:
+            print("Resume flag detected. Checking for already processed records...")
+            processed_keys = load_processed_keys(settings.incorrect_proofs_file)
+            records_to_process = [
+                r for r in records_to_process 
+                if (r.get('path'), r.get('src_hash'), r.get('theorem')) not in processed_keys
+            ]
+            print(f"Found {len(processed_keys)} processed records. Skipping them.")
         
     if not records_to_process:
         print("No new records to process. Exiting.")
@@ -73,7 +76,7 @@ async def main_async():
 
     # --- Run mutation generation concurrently ---
     limiter = AsyncLimiter(RATE_LIMIT, 1)
-    tasks = [generate_mutation_for_record(rec, api_key, limiter) for rec in records_to_process]
+    tasks = [generate_similar_theorem_mutation_for_record(rec, api_key, limiter) for rec in records_to_process]
     
     print(f"Sending {len(tasks)} tasks to the API (this may take a while)...")
     results_list = await asyncio.gather(*tasks)

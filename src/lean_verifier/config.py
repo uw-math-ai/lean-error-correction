@@ -29,6 +29,10 @@ class Settings:
     excluded_proofs_file: Path
     explained_proofs_file: Path
     sft_dataset_file: Path
+    line_mutation_input_file: Path
+    dubious_proofs_file: Path
+    dubious_filter_input_file: Path
+    line_mutation_pairs_file: Path
     api_keys: Dict[str, str]
     explanation_model: ExplanationModelSettings = field(default_factory=dict)
 
@@ -63,6 +67,10 @@ def load_settings() -> Settings:
         annotated_proofs_file=PROJECT_ROOT / config_data['annotated_proofs_file'],
         excluded_proofs_file=PROJECT_ROOT / config_data['excluded_proofs_file'],
         explained_proofs_file=PROJECT_ROOT / config_data['explained_proofs_file'],
+        line_mutation_input_file=PROJECT_ROOT / config_data['line_mutation_input_file'],
+        dubious_proofs_file = PROJECT_ROOT / config_data['dubious_proofs_file'],
+        dubious_filter_input_file=PROJECT_ROOT / config_data['dubious_filter_input_file'],
+        line_mutation_pairs_file=PROJECT_ROOT / config_data['line_mutation_pairs_file'],
         sft_dataset_file=PROJECT_ROOT / config_data['sft_dataset_file'],
         api_keys=data.get('tool', {}).get('lean_verifier', {}).get('api_keys', {}),
         explanation_model=ExplanationModelSettings(

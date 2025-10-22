@@ -6,6 +6,26 @@ import re # <-- Added import
 from lean_interact import AutoLeanServer, FileCommand, LeanREPLConfig, Command
 from .data_models import LeanFile, ProofPair
 
+def verify_lean_code(lean_code: str, server: AutoLeanServer) -> tuple[str, dict]:
+    temp_file_path = None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.lean', encoding='utf-8') as tf:
+            tf.write("import Mathlib\n\n" + lean_code)
+            temp_file_path = tf.name
+
+        command = FileCommand(path=temp_file_path)
+        result = server.run(command)
+
+        error_messages = [msg.data for msg in result.messages if msg.severity == 'error']
+
+        if not error_messages:
+            return ('pass', result)
+        else:
+            return ('fail', result)
+    finally:
+        if temp_file_path and os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
+
 def verify_lean_file(config: LeanREPLConfig, lean_file: LeanFile) -> tuple[str, dict]:
     """
     Worker function that verifies a LeanFile object using the robust file-based method.

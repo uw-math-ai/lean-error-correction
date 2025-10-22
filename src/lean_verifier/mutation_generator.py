@@ -4,12 +4,22 @@ import asyncio
 import hashlib
 import httpx
 import re
+import random
 from typing import List, Dict, Any, Optional, Tuple
+# from lean_verifier.core import verify_lean_file
+# from lean_verifier.config import settings
+# from lean_interact import LeanREPLConfig, TempRequireProject
 
 from aiolimiter import AsyncLimiter
 from lean_explore.api.client import Client
 
 RATE_LIMIT = 5  # requests per second
+
+LINE_REPLACEMENT_PROMPT = """
+The following is a correct Lean 4 proof, but it has one line missing. Please help me complete the proof by filling in the line that says 'REDACTED'. Your response will be replace the word 'REDACTED' in the proof.
+{broken_proof}
+"""
+# CONFIG = LeanREPLConfig(project=TempRequireProject(lean_version=settings.lean_version, require="mathlib"))
 
 def _sha256_hex(s: str) -> str:
     return hashlib.sha256(s.encode("utf-8")).hexdigest()
@@ -53,7 +63,8 @@ async def _get_theorem_info(client: Client, limiter: AsyncLimiter, name: str) ->
             await asyncio.sleep(2 ** attempt)
     return {"name": name, "formal": "", "informal": ""}
 
-async def generate_mutation_for_record(record: Dict[str, Any], api_key: str, limiter: AsyncLimiter) -> List[Dict[str, Any]]:
+
+async def generate_similar_theorem_mutation_for_record(record: Dict[str, Any], api_key: str, limiter: AsyncLimiter) -> List[Dict[str, Any]]:
     """
     For a single theorem record, queries the API to find a replacement and
     generates up to two incorrect proof variants.
@@ -107,3 +118,25 @@ async def generate_mutation_for_record(record: Dict[str, Any], api_key: str, lim
         })
 
     return output_records
+
+class DummyModel:
+    """A class that stands in for an actual LLM while building and testing code. The best things in life are free."""
+    def querry(self, querry) -> str:
+        return "  exact \u27e8fun h \u21a6 by rw [Set.mem_Ioo]; constructor <;> nlinarith [h], fun h \u21a6 by rw [Set.mem_Ioo] at h; nlinarith\u27e9"
+
+
+async def generate_model_replaces_line_mutation_for_record(text: str, limiter: AsyncLimiter) -> List[Dict[str, Any]]:
+    """
+    For a single theorem record, asks a given LLM to replace a line, producing up to one varient.
+    """
+    formal_statement, body = text.split("by\n")
+    formal_statement += "by\n"
+    proof_lines = body.split('\n')
+    proof_lines[random.randrange(0, len(proof_lines))] = "REDACTED"
+    redacted_proof = formal_statement + '\n'.join(proof_lines)
+    prompt = LINE_REPLACEMENT_PROMPT.format(broken_proof=redacted_proof)
+
+    model = DummyModel()
+    response = model.querry(prompt)
+    
+    return redacted_proof.replace("REDACTED", response)
