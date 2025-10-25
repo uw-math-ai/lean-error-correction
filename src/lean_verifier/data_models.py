@@ -4,7 +4,7 @@ import hashlib
 import json
 from dataclasses import dataclass, asdict 
 from pathlib import Path
-from typing import Optional # This was already imported
+from typing import Optional 
 
 @dataclass
 class LeanFile:
@@ -60,11 +60,22 @@ class AnnotatedProof(ProofPair):
     Represents an incorrect proof that has been annotated with error
     information from the Lean server. Inherits from ProofPair.
     """
-    # Must have default values to follow the optional fields
-    # in the parent class ProofPair.
     error: Optional[str] = None
     line_at_error: Optional[str] = None
     state_at_error: Optional[str] = None
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        """
+        Factory method to create an AnnotatedProof from a dictionary.
+        This handles legacy keys with spaces.
+        """
+        if "line at error" in data:
+            data["line_at_error"] = data.pop("line at error")
+        if "state at error" in data:
+            data["state_at_error"] = data.pop("state at error")
+        
+        return cls(**data)
 
 
 @dataclass
@@ -73,7 +84,5 @@ class ExplainedProof(AnnotatedProof):
     Represents an annotated proof that has been explained by an AI.
     Inherits from AnnotatedProof.
     """
-    # Must have default values to follow the optional fields
-    # in the parent classes.
     explanation: Optional[str] = None
     fix_suggestion: Optional[str] = None
