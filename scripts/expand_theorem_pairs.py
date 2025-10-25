@@ -46,7 +46,7 @@ def main():
                     "src_hash": data["src_hash"],
                     "theorem": theorem_id
                 }
-                outfile.write(json.dumps(output_record) + '\n')
+                outfile.write(json.dumps(output_record, ensure_ascii=False) + '\n')
                 output_lines += 1
 
     print(f"\nProcessed {input_lines} input files.")

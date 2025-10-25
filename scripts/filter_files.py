@@ -5,6 +5,7 @@ import time
 import json
 import argparse
 import multiprocessing as mp
+import functools  # <-- Import functools
 from pathlib import Path
 
 from lean_verifier.data_models import LeanFile
@@ -63,28 +64,38 @@ def main():
     start_time = time.time()
     
     ctx = mp.get_context("spawn")
-    with ctx.Pool(processes=settings.num_processes) as pool:
-        results = pool.starmap(verify_lean_file, [(config, lf) for lf in files_to_process])
-
-    end_time = time.time()
-    print(f"Processing complete in {end_time - start_time:.2f} seconds.")
-
     pass_count = 0
     fail_count = 0
     
     # If we're resuming, append to the files ('a'). Otherwise, start fresh ('w').
     file_mode = 'a' if args.resume else 'w'
     
-    # Go through the results and sort them into the pass and fail files.
-    with open(settings.pass_output_file, file_mode) as f_pass, open(settings.fail_output_file, file_mode) as f_fail:
-        for status, data in results:
-            line = json.dumps(data) + '\n'
+    # Use functools.partial to create a worker function that only takes one arg
+    worker_func = functools.partial(verify_lean_file, config)
+    total_files = len(files_to_process)
+
+    # Open files *outside* the loop, and use imap_unordered
+    with ctx.Pool(processes=settings.num_processes) as pool, \
+         open(settings.pass_output_file, file_mode) as f_pass, \
+         open(settings.fail_output_file, file_mode) as f_fail:
+        
+        # pool.imap_unordered gives us results as they are completed
+        results_iter = pool.imap_unordered(worker_func, files_to_process)
+        
+        for i, (status, data) in enumerate(results_iter):
+            print(f"  [{i+1}/{total_files}] Checked: {data['path']} -> {status.upper()}")
+            
+            line = json.dumps(data, ensure_ascii=False) + '\n'
+            
             if status == 'pass':
                 f_pass.write(line)
                 pass_count += 1
             else:
                 f_fail.write(line)
                 fail_count += 1
+
+    end_time = time.time()
+    print(f"Processing complete in {end_time - start_time:.2f} seconds.")
     
     print("\n--- Summary ---")
     print(f"New Passed: {pass_count} files appended to {settings.pass_output_file}")

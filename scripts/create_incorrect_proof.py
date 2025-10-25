@@ -87,7 +87,7 @@ async def main_async():
     with settings.incorrect_proofs_file.open(file_mode, encoding='utf-8') as f:
         for record_list in results_list:
             for record in record_list:
-                f.write(json.dumps(record) + '\n')
+                f.write(json.dumps(record, ensure_ascii=False) + '\n')
                 lines_written += 1
                 
     print(f"\n Wrote {lines_written} new incorrect proof records to {settings.incorrect_proofs_file}.")

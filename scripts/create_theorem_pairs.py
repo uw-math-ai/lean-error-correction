@@ -56,7 +56,7 @@ def main():
                     "src_hash": data["src_hash"],
                     "ids": theorem_ids 
                 }
-                outfile.write(json.dumps(output_record) + '\n')
+                outfile.write(json.dumps(output_record, ensure_ascii=False) + '\n')
                 lines_written += 1
 
     print(f"\nSuccess! Wrote {lines_written} theorem pairs to {settings.theorem_pairs_file}.")
