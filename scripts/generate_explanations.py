@@ -54,7 +54,8 @@ def main():
                 outfile.write(json.dumps(output_data) + '\n')
                 
             except Exception as e:
-                print(f"Failed to process proof {i+1}. Error: {e}")
+                # print(f"Failed to process proof {i+1}. Error: {e}")
+                raise e
             
             # A small delay to be kind to the API
             time.sleep(0.5)

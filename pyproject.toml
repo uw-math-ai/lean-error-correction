@@ -25,6 +25,9 @@ line_mutation_input_file = "data/line_mutation_input.jsonl"
 dubious_proofs_file = "data/dubious_proofs.jsonl"
 dubious_filter_input_file = "data/dubious_filter_input.jsonl"
 line_mutation_pairs_file = "data/line_mutation_pairs.jsonl"
+annotated_lme_proofs_file = "data/annotated_lme_proofs.jsonl" 
+excluded_lme_proofs_file = "data/excluded_lme_proofs.jsonl" 
+gemini_explanation_model = "gemini-2.5-flash"
 
 [tool.lean_verifier.explanation_model]
 model_name = "gpt-4o-mini"
@@ -35,3 +38,4 @@ timeout_seconds = 60
 [tool.lean_verifier.api_keys]
 lean_explore = "APIKEY-HERE"
 openai = "APIKEY-HERE"
+gemini = "APIKEY-HERE"

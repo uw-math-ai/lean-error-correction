@@ -119,12 +119,6 @@ async def generate_similar_theorem_mutation_for_record(record: Dict[str, Any], a
 
     return output_records
 
-class DummyModel:
-    """A class that stands in for an actual LLM while building and testing code. The best things in life are free."""
-    def querry(self, querry) -> str:
-        return "  exact \u27e8fun h \u21a6 by rw [Set.mem_Ioo]; constructor <;> nlinarith [h], fun h \u21a6 by rw [Set.mem_Ioo] at h; nlinarith\u27e9"
-
-
 async def generate_model_replaces_line_mutation_for_record(text: str, limiter: AsyncLimiter) -> List[Dict[str, Any]]:
     """
     For a single theorem record, asks a given LLM to replace a line, producing up to one varient.

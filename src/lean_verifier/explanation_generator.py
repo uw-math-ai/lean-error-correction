@@ -1,9 +1,10 @@
 # src/lean_verifier/explanation_generator.py
 
-from openai import OpenAI
+from lean_verifier.llm_zoo import ChatGPTInstance, GeminiInstance
 from typing import Tuple, List, Dict, Any
 import time
 
+from lean_verifier.config import settings
 from .config import Settings
 from .data_models import AnnotatedProof
 
@@ -96,17 +97,15 @@ def _build_context_block(proof: AnnotatedProof) -> str:
     
     # If the check fails (Default Mode), 'parts' simply doesn't get
     # the extra metadata, and the function proceeds.
+    return '\n'.join(parts)
     
 
 
-def generate_explanation(proof: AnnotatedProof, settings: Settings) -> Tuple[str, str]:
+def generate_explanation(proof: AnnotatedProof, model_settings: Settings) -> Tuple[str, str]:
     """
-    Calls the OpenAI API in a two-step process to generate a detailed
+    Calls the Gemini API in a two-step process to generate a detailed
     explanation and fix for a given annotated proof.
     """
-    client = OpenAI(api_key=settings.api_keys.get("openai"))
-    model_cfg = settings.explanation_model
-
     # Decide which set of prompts to use
     
     # Check for "Theorem Mutation Mode" (all-or-nothing)
@@ -129,38 +128,14 @@ def generate_explanation(proof: AnnotatedProof, settings: Settings) -> Tuple[str
     # This now builds a conditional context
     context = _build_context_block(proof) 
 
-
+    chat = GeminiInstance(settings.gemini_explanation_model, system_prompt)
     # --- Call 1: Generate the Diagnosis ---
-    diag_messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": f"{diagnosis_instruction}\n\n{context}"}
-    ]
-    
-    diag_response = client.chat.completions.create(
-        model=model_cfg.model_name,
-        messages=diag_messages,
-        temperature=model_cfg.temperature,
-        max_tokens=model_cfg.max_tokens,
-        timeout=model_cfg.timeout_seconds,
-    )
-    explanation = diag_response.choices[0].message.content or ""
+    explanation = chat.querry(f"{diagnosis_instruction}\n\n{context}")
     
     # A small delay to be kind to the API
     time.sleep(0.5)
 
     # --- Call 2: Generate the Fix ---
-    fix_messages = diag_messages + [
-        {"role": "assistant", "content": explanation},
-        {"role": "user", "content": fix_instruction}
-    ]
-    
-    fix_response = client.chat.completions.create(
-        model=model_cfg.model_name,
-        messages=fix_messages,
-        temperature=model_cfg.temperature,
-        max_tokens=200, # A smaller token limit for the fix is usually sufficient
-        timeout=model_cfg.timeout_seconds,
-    )
-    fix_suggestion = fix_response.choices[0].message.content or ""
+    fix_suggestion = chat.querry(fix_instruction)
             
     return explanation, fix_suggestion
