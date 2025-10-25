@@ -31,7 +31,7 @@ async def main_async():
                 out_file.write(json.dumps({
                     "path": line["path"],
                     "correct_proof": line["text"],
-                    "dubious_proof": await generate_model_replaces_line_mutation_for_record(line["text"], limiter) #TODO: I believe we can paralelize this
+                    "incorrect_proof": await generate_model_replaces_line_mutation_for_record(line["text"], limiter) #TODO: I believe we can paralelize this
                     }) + "\n")
             except Exception as e:
                 with open(settings.line_mutation_input_file, 'w') as in_file_w:
