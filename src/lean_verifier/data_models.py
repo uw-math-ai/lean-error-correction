@@ -32,12 +32,12 @@ class LeanFile:
 class ProofPair:
     """Represents a pair of a correct and an incorrect Lean proof."""
     path: str
-    theorem: str
-    src_hash: str
     correct_proof: str
     incorrect_proof: str
     
     # These are optional to support different generation modes.
+    theorem: Optional[str] = None
+    src_hash: Optional[str] = None
     correct_name: Optional[str] = None
     incorrect_name: Optional[str] = None
     correct_formal: Optional[str] = None
