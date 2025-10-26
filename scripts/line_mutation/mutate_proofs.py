@@ -3,6 +3,7 @@ import shutil
 import asyncio
 import json
 import os
+import time
 
 from lean_verifier.mutation_generator import generate_model_replaces_line_mutation_for_record, RATE_LIMIT
 from lean_verifier.config import settings
@@ -22,16 +23,18 @@ async def main_async():
     else:
         print(f"Input file detected, resuming...")
     
-    limiter = AsyncLimiter(RATE_LIMIT, 1)
+    start = time.time()
     with open(settings.line_mutation_input_file, 'r') as in_file, open(settings.dubious_proofs_file, 'a') as out_file:
         in_lines = in_file.readlines()
+        total_count = len(in_lines)
         while len(in_lines) != 0:
             try:
                 line = json.loads(in_lines.pop())
+                print(f"Processing record {total_count - len(in_lines)}/{total_count}...")
                 out_file.write(json.dumps({
                     "path": line["path"],
                     "correct_proof": line["text"],
-                    "incorrect_proof": await generate_model_replaces_line_mutation_for_record(line["text"], limiter) #TODO: I believe we can paralelize this
+                    "incorrect_proof": await generate_model_replaces_line_mutation_for_record(line["text"]) #TODO: I believe we can paralelize this
                     }) + "\n")
             except Exception as e:
                 with open(settings.line_mutation_input_file, 'w') as in_file_w:

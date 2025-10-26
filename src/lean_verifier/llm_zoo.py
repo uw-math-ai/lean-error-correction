@@ -42,8 +42,8 @@ class GeminiInstance(ModelInstance):
             {"role": "model", "parts": ["System prompt aknowledged. I will follow those instructions above all others."]}
         ])
 
-    def querry(self, prompt: str) -> str:
-        return self.chat.send_message(prompt).text
+    async def querry(self, prompt: str, generation_config={}) -> str:
+        return self.chat.send_message(prompt, generation_config=generation_config).text
 
         
         

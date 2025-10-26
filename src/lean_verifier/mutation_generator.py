@@ -12,6 +12,7 @@ from typing import List, Dict, Any, Optional, Tuple
 
 from aiolimiter import AsyncLimiter
 from lean_explore.api.client import Client
+import asyncio
 
 RATE_LIMIT = 5  # requests per second
 
@@ -119,18 +120,20 @@ async def generate_similar_theorem_mutation_for_record(record: Dict[str, Any], a
 
     return output_records
 
-async def generate_model_replaces_line_mutation_for_record(text: str, limiter: AsyncLimiter) -> List[Dict[str, Any]]:
+async def generate_model_replaces_line_mutation_for_record(text: str) -> List[Dict[str, Any]]:
     """
     For a single theorem record, asks a given LLM to replace a line, producing up to one varient.
     """
-    formal_statement, body = text.split("by\n")
+    formal_statement, body = text.split("by\n", 1)
     formal_statement += "by\n"
     proof_lines = body.split('\n')
     proof_lines[random.randrange(0, len(proof_lines))] = "REDACTED"
     redacted_proof = formal_statement + '\n'.join(proof_lines)
     prompt = LINE_REPLACEMENT_PROMPT.format(broken_proof=redacted_proof)
 
-    model = DummyModel()
-    response = model.querry(prompt)
+    chat = GeminiInstance(settings.gemini_prover_model, LINE_REPLACEMENT_SYSTEM_PROMPT)
+    response = await chat.querry(prompt, generation_config={
+        "max_output_tokens": 200
+    })
     
     return redacted_proof.replace("REDACTED", response)
