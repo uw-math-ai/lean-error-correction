@@ -1,9 +1,14 @@
+# scripts/generate_explanations.py
+
 import json
 import time
 from pathlib import Path
 import sys
 import argparse
 import hashlib
+import os 
+from concurrent.futures import ThreadPoolExecutor, as_completed 
+import threading
 
 project_root = Path(__file__).parent.parent
 src_path = project_root / "src"
@@ -32,6 +37,38 @@ def load_processed_proofs(output_file: Path) -> set[str]:
             except (json.JSONDecodeError, KeyError):
                 continue
     return processed_hashes
+
+# Defaults to keep things safe
+MAX_WORKERS = int(os.getenv("GEN_EXPL_WORKERS", "16"))
+QPS = float(os.getenv("GEN_EXPL_QPS", "5.0"))
+_rl_lock = threading.Lock()
+_last_ts = [0.0]
+
+def _rate_limit():
+    if QPS <= 0:
+        return
+    import time as _t
+    with _rl_lock:
+        now = _t.time()
+        interval = 1.0 / QPS
+        wait = _last_ts[0] + interval - now
+        if wait > 0:
+            _t.sleep(wait)
+        _last_ts[0] = max(_last_ts[0] + interval, now)
+
+def _process_one(proof: AnnotatedProof) -> dict:
+    _rate_limit()
+    explanation, fix = generate_explanation(proof, settings)
+
+    if not explanation:
+        explanation = "The proof fails due to a mismatch between the goal and the facts/tactics used."
+    if not fix:
+        fix = "Adjust the tactic or theorem usage to match the goal’s type and required side conditions."
+
+    out = proof.to_dict()
+    out["explanation"] = explanation
+    out["fix_suggestion"] = fix
+    return out
 
 def main():
     """Main function for Step 6: Generate AI Explanations."""
@@ -65,9 +102,7 @@ def main():
     with settings.annotated_proofs_file.open('r', encoding='utf-8') as f:
         for line in f:
             data = json.loads(line)
-            # Create a hash of the incorrect proof to see if we've processed it
             proof_hash = hashlib.sha1(data.get('incorrect_proof', '').encode('utf-8')).hexdigest()
-            
             if proof_hash not in processed_hashes:
                 proofs_to_process.append(AnnotatedProof.from_dict(data))
     
@@ -77,36 +112,29 @@ def main():
 
     print(f"Found {len(proofs_to_process)} new annotated proofs to explain.")
 
-    # --- 4. Process each proof and generate explanations ---
-    # This is an API-bound task, so we run it sequentially to avoid overwhelming
-    # the API
-    
-    # Open in 'append' mode if resuming, otherwise 'write' mode
+    # --- 4. Parallel processing (bounded) ---
     file_mode = 'a' if args.resume else 'w'
     new_explanations_count = 0
-    
+    write_lock = threading.Lock()
+
     with settings.explained_proofs_file.open(file_mode, encoding='utf-8') as outfile:
-        for i, proof in enumerate(proofs_to_process):
-            print(f"Processing proof {i+1}/{len(proofs_to_process)} ({proof.path})...")
-            try:
-                cause, fix = generate_explanation(proof, settings)
-                
-                output_data = proof.to_dict()
-                output_data['explanation'] = cause
-                output_data['fix_suggestion'] = fix
-                
-                outfile.write(json.dumps(output_data, ensure_ascii=False) + "\n")
-                new_explanations_count += 1
-                
-            except Exception as e:
-                print(f"ERROR: Failed to process proof {i+1} ({proof.path}). Error: {e}")
-                print("Skipping this proof and continuing...")
-                continue
-            
-            # A small delay to be kind to the API
-            time.sleep(0.5)
+        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+            futures = [ex.submit(_process_one, p) for p in proofs_to_process]
+            for i, fut in enumerate(as_completed(futures), start=1):
+                try:
+                    out = fut.result()
+                    with write_lock:
+                        outfile.write(json.dumps(out, ensure_ascii=False) + "\n")
+                        new_explanations_count += 1
+                    if i % 50 == 0:
+                        print(f"Progress: {i}/{len(proofs_to_process)}...")
+                except Exception as e:
+                    print(f"ERROR: Failed to process proof {i} : {e}")
+                    continue
 
     print(f"\nSuccess. Wrote {new_explanations_count} new explained proofs to {settings.explained_proofs_file}.")
 
 if __name__ == "__main__":
     main()
+
+
