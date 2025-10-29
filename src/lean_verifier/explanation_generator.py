@@ -138,7 +138,7 @@ def _parse_lenient_two_fields(raw: str, p: AnnotatedProof) -> Tuple[str, str]:
     return explanation, fix
 
 
-def generate_explanation(proof: AnnotatedProof, model_settings: Settings) -> Tuple[str, str]:
+async def generate_explanation(proof: AnnotatedProof, model_settings: Settings=None) -> Tuple[str, str]:
     """
     Single-call flow:
       - Choose mode (Default vs Mutation).
@@ -151,7 +151,7 @@ def generate_explanation(proof: AnnotatedProof, model_settings: Settings) -> Tup
     context = _build_context_block(proof)
 
     chat = GeminiInstance(settings.gemini_explanation_model, system_prompt)
-    raw = chat.querry(f"{instruction}\n\n{context}") 
+    raw = await chat.querry(f"{instruction}\n\n{context}") 
 
     explanation, fix_suggestion = _parse_lenient_two_fields(raw, proof)
     return explanation, fix_suggestion

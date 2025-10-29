@@ -115,6 +115,8 @@ def annotate_proof_worker(config: LeanREPLConfig, proof_pair: ProofPair) -> tupl
             output_data['state_at_error'] = state_at_error
             
             return ('annotated', output_data)
+    except:
+        return ('excluded', None)
             
     finally:
         if temp_file_path and os.path.exists(temp_file_path):

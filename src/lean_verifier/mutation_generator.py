@@ -7,7 +7,8 @@ import re
 import random
 from typing import List, Dict, Any, Optional, Tuple
 # from lean_verifier.core import verify_lean_file
-# from lean_verifier.config import settings
+from lean_verifier.config import settings
+from lean_verifier.llm_zoo import GeminiInstance
 # from lean_interact import LeanREPLConfig, TempRequireProject
 
 from aiolimiter import AsyncLimiter
@@ -19,6 +20,9 @@ RATE_LIMIT = 5  # requests per second
 LINE_REPLACEMENT_PROMPT = """
 The following is a correct Lean 4 proof, but it has one line missing. Please help me complete the proof by filling in the line that says 'REDACTED'. Your response will be replace the word 'REDACTED' in the proof.
 {broken_proof}
+"""
+LINE_REPLACEMENT_SYSTEM_PROMPT = """
+You are a Lean 4 programmer.
 """
 # CONFIG = LeanREPLConfig(project=TempRequireProject(lean_version=settings.lean_version, require="mathlib"))
 
@@ -136,4 +140,4 @@ async def generate_model_replaces_line_mutation_for_record(text: str) -> List[Di
         "max_output_tokens": 200
     })
     
-    return redacted_proof.replace("REDACTED", response)
+    return redacted_proof.replace("REDACTED", response.replace("```\nlean\n", "").replace("```", ""))

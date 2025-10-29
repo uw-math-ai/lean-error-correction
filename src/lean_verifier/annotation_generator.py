@@ -17,6 +17,16 @@ from lean_verifier.core import annotate_proof_worker
 from lean_interact import LeanREPLConfig, TempRequireProject
 
 
+def _annotate_one(config, pair, annotated_proofs_file, excluded_proofs_file):
+    status, data = annotate_proof_worker(config, pair)
+    with open(annotated_proofs_file, 'a') as f_ann, open(excluded_proofs_file, 'a') as f_exc:
+        line = json.dumps(data) + '\n'
+        if status == 'annotated':
+            f_ann.write(line)
+        else:
+            f_exc.write(line)
+
+
 def annotate_proofs(incorrect_proofs_file, annotated_proofs_file, excluded_proofs_file, output_dir=settings.output_dir):
     """Annotate proofs given files to work from."""
     parser = argparse.ArgumentParser(description="Verify and annotate incorrect proofs.")
@@ -47,24 +57,7 @@ def annotate_proofs(incorrect_proofs_file, annotated_proofs_file, excluded_proof
     
     ctx = mp.get_context("spawn")
     with ctx.Pool(processes=settings.num_processes) as pool:
-        results = pool.starmap(annotate_proof_worker, [(config, pair) for pair in proof_pairs_to_process])
+        results = pool.starmap(_annotate_one, [(config, pair, annotated_proofs_file, excluded_proofs_file) for pair in proof_pairs_to_process])
 
     end_time = time.time()
     print(f"Processing complete in {end_time - start_time:.2f} seconds.")
-
-    # --- Write the results to the two output files ---
-    annotated_count = 0
-    excluded_count = 0
-    with open(annotated_proofs_file, 'w') as f_ann, open(excluded_proofs_file, 'w') as f_exc:
-        for status, data in results:
-            line = json.dumps(data) + '\n'
-            if status == 'annotated':
-                f_ann.write(line)
-                annotated_count += 1
-            else:
-                f_exc.write(line)
-                excluded_count += 1
-    
-    print("\n--- Summary ---")
-    print(f"Annotated (failed as expected): {annotated_count} proofs written to {annotated_proofs_file}")
-    print(f"Excluded (passed unexpectedly): {excluded_count} proofs written to {excluded_proofs_file}")

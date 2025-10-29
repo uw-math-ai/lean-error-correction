@@ -8,8 +8,18 @@ import time
 from lean_verifier.mutation_generator import generate_model_replaces_line_mutation_for_record, RATE_LIMIT
 from lean_verifier.config import settings
 from aiolimiter import AsyncLimiter
+from concurrent.futures import ThreadPoolExecutor, as_completed 
+import threading
 
-async def main_async():
+async def _process_one(line):
+    with threading.Lock():
+        settings.dubious_proofs_file.open('a').write(json.dumps({
+                    "path": line["path"],
+                    "correct_proof": line["text"],
+                    "incorrect_proof": await generate_model_replaces_line_mutation_for_record(line["text"])
+                }) + "\n")
+
+async def _process_all():
     """Generates dubious single line mutations of known correct proofs."""
 
     if not settings.pass_output_file.exists():
@@ -24,30 +34,15 @@ async def main_async():
         print(f"Input file detected, resuming...")
     
     start = time.time()
-    with open(settings.line_mutation_input_file, 'r') as in_file, open(settings.dubious_proofs_file, 'a') as out_file:
-        in_lines = in_file.readlines()
-        total_count = len(in_lines)
-        while len(in_lines) != 0:
-            try:
-                line = json.loads(in_lines.pop())
-                print(f"Processing record {total_count - len(in_lines)}/{total_count}...")
-                out_file.write(json.dumps({
-                    "path": line["path"],
-                    "correct_proof": line["text"],
-                    "incorrect_proof": await generate_model_replaces_line_mutation_for_record(line["text"]) #TODO: I believe we can paralelize this
-                    }) + "\n")
-            except Exception as e:
-                with open(settings.line_mutation_input_file, 'w') as in_file_w:
-                    in_file_w.writelines(in_lines)
-                raise e
-    os.remove(settings.line_mutation_input_file)
 
+    file_mode = 'a'
+    write_lock = threading.Lock()
+    proofs_to_process = [json.dumps(line) for line in settings.line_mutation_input_file.open('r').readlines()]
+
+    await asyncio.gather(*[_process_one(json.loads(line)) for line in settings.line_mutation_input_file.open('r').readlines()])
 
 def main():
-    try:
-        asyncio.run(main_async())
-    except KeyboardInterrupt:
-        print("\nProcess interrupted by user.")
+    settings.dubious_proofs_file.open('a').writelines(asyncio.run(_process_all()))
 
 if __name__ == "__main__":
     main()
