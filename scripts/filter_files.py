@@ -5,7 +5,7 @@ import time
 import json
 import argparse
 import multiprocessing as mp
-import functools  # <-- Import functools
+import functools
 from pathlib import Path
 
 from lean_verifier.data_models import LeanFile
