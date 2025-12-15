@@ -30,7 +30,7 @@ gemini_explanation_model = "gemini-2.5-flash"
 gemini_prover_model = "gemini-2.5-flash-lite"
 
 explained_lme_proofs_file = "data/explained_lme_proofs6.jsonl"
-annotated_lme_proofs_file = "data/annotated_lme_proofs copy 6.jsonl" 
+annotated_lme_proofs_file = "data/annotated_lme_proofs.jsonl" 
 
 [tool.lean_verifier.explanation_model]
 model_name = "gpt-4o-mini"
@@ -42,3 +42,4 @@ timeout_seconds = 60
 lean_explore = "APIKEY-HERE"
 openai = "APIKEY-HERE"
 gemini = "APIKEY-HERE"
+deepseek = "DEPRICATED"
