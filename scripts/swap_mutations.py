@@ -33,20 +33,26 @@ tactic_pairs = {
     "aesop": ["simp"] 
 }
 
+def get_theorem_name(proof):
+    match = re.search(r'^\s*theorem\s+([A-Za-z0-9_\']+)', proof, re.MULTILINE)
+
+    if match:
+        return match.group(1)
+
 def replace_tactics(proof, pattern, max_mutations):
 
     # find tactics in proof 
     matches = list(re.finditer(pattern, proof))
 
     if not matches:
-        return None
-    
+        return None, None
 
     # select 1-3 tactics from proof
     num_swaps = random.randint(1, min(max_mutations, len(matches)))
     selected_tactics = random.sample(matches, num_swaps)
     selected_tactics.sort(key=lambda m: m.start(), reverse=True)
 
+    metadata = []
     # replace tactic with similar tactic
     for tactic in selected_tactics:
         original_tactic = tactic.group(0)
@@ -54,12 +60,34 @@ def replace_tactics(proof, pattern, max_mutations):
         start = tactic.start()
         end = tactic.end()
         
+        line_number = proof.count('\n', 0, start) + 1
+
+        # original contents of line
+        line_start = proof.rfind('\n', 0, start) + 1
+        line_end = proof.find('\n', end)
+        if line_end == -1:
+            line_end = len(proof)
+        original_line = proof[line_start:line_end].strip()
+        
+        # actual swap
         possible_replacements = tactic_pairs[original_tactic]
         new_tactic = random.choice(possible_replacements)
         
         proof = proof[:start] + new_tactic + proof[end:]
-        
-    return proof
+
+        # new contents of line
+        line_start = proof.rfind('\n', 0, start) + 1
+        line_end = proof.find('\n', start + len(new_tactic))
+        if line_end == -1:
+            line_end = len(proof)
+        new_line = proof[line_start:line_end].strip()
+
+        metadata.append({
+            "line_number": line_number,
+            "original_line": original_line,
+            "new_line": new_line
+        })
+    return proof, metadata
 
 def main(): 
     sorted_keys = sorted(tactic_pairs.keys(), key=len, reverse=True)
@@ -76,20 +104,21 @@ def main():
             with open(path + proof, 'r',encoding='utf-8') as file:
                 original_proof = file.read()
 
-            swap_1 = replace_tactics(original_proof, pattern, max_mutations)
-
-            if swap_1 is None: # skip proofs that don't contain a swappable tactic
-                continue
-
-            line = {
-                "original": original_proof,
-                "swap_1": swap_1
-            }
-
-            for entry in range(1,entries_per_proof):
-                line[f"swap_{entry+1}"] = replace_tactics(original_proof, pattern, max_mutations)
-          
-            output.write(json.dumps(line) + "\n")
+            theorem_name = get_theorem_name(original_proof)
+            
+            for _ in range(entries_per_proof):
+                error, metadata = replace_tactics(original_proof, pattern, max_mutations)
+                if not error:  # skip proofs that don't contain a swappable tactic
+                    break
+                    
+                line = {
+                    "theorem_name": theorem_name,
+                    "original": original_proof,
+                    "swap_error": error,
+                    "metadata": metadata
+                }
+                output.write(json.dumps(line) + "\n")
+                    
             
 if __name__ == "__main__":
     main()
