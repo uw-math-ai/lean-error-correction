@@ -1,0 +1,27 @@
+{"path": "busted_theorem.lean", "correct_proof": "theorem lean_workbook_plus_17 (a b c : ℝ) (ha : 0 < b) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) (h : a^4 + b^4 + c^4 = 1) : a^3 / (1 - a^8) + b^3 / (1 - b^8) + c^3 / (1 - c^8) ≥ 9 * (3 : ℝ)^(1 / 4) / 8   := by\n  norm_num [ha, hb, hc, habc, h]\n  have h1 := sq_nonneg (a^2 - 1)\n  have h2 := sq_nonneg (b^2 - c^2)\n  nlinarith", "incorrect_proof": "theorem lean_workbook_plus_17 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) (h : a^4 + b^4 + c^4 = 1) : a^3 / (1 - a^8) + b^3 / (1 - b^8) + c^3 / (1 - c^8) ≥ 9 * (3 : ℝ)^(1 / 4) / 8   := by\n  norm_num [ha, hb, hc, habc, h]\n  have h1 := sq_nonneg (a^2 - 1)\n  have h2 := sq_nonneg (b^2 - c^2)\n  nlinarith editted by Simon Chess (R)", "theorem": null, "src_hash": "47c674df811293061946529e775929d993d56f84edbb5e23b9b5c7f01969a29c", "correct_name": null, "incorrect_name": null, "correct_formal": null, "incorrect_formal": null, "correct_informal": null, "incorrect_informal": null}
+{"path": "syntax_error.lean", "correct_proof": "theorem lean_workbook_plus_2 (x : ℝ) : x^2 - 2*x - 24 < 0 ↔ x ∈ Set.Ioo (-4) 6   := by\n  exact ⟨fun h ↦ by rw [Set.mem_Ioo]; constructor <;> nlinarith [h], fun h ↦ by rw [Set.mem_Ioo] at h; nlinarith⟩", "incorrect_proof": "theorem lean_workbook_plus_2 (x : ℝ) : x^2 - 2*x - 24 < 0 ↔ x ∈ Set.Ioo (-4) 6   := by\n  exact ⟨fun h ↦ by rw [Set.mem_Ioo]; constructor <;> nlinarith [h], fun h ↦ by rw [Set.mem_Ioo] at h; nlinarith⟩ editted by Simon Chess (R)", "theorem": null, "src_hash": "2518a312e58082492d5cf7744ecd78f931543e7addfc0cbb83dd8563d3a74245", "correct_name": null, "incorrect_name": null, "correct_formal": null, "incorrect_formal": null, "correct_informal": null, "incorrect_informal": null}
+{"path": "no_error.lean", "correct_proof": "theorem lean_workbook_plus_21 (n p q : ℕ) (hp : p ≤ n) (hq : q ≤ p) : (n - q).choose (p - q) * n.choose q = n.choose p * p.choose q   := by\n  simp [choose_mul, hp, hq, mul_comm, mul_assoc, mul_left_comm]", "incorrect_proof": "theorem lean_workbook_plus_21 (n p q : ℕ) (hp : p ≤ n) (hq : q ≤ p) : (n - q).choose (p - q) * n.choose q = n.choose p * p.choose q   := by\n  simp [choose_mul, hp, hq, mul_comm, mul_assoc, mul_left_comm]", "theorem": null, "src_hash": "5f0e16fdf9d1298d1f3a3316f61fd98295eb4e02d0d1da506a51b74cf88f2fa5", "correct_name": null, "incorrect_name": null, "correct_formal": null, "incorrect_formal": null, "correct_informal": null, "incorrect_informal": null}
+{"path": "sorry.lean", "correct_proof": "theorem lean_workbook_plus_24 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : 1 / a + 1 / b + 1 / c ≥ 2 * (1 / (b + c) + 1 / (c + a) + 1 / (a + b))   := by\n  field_simp [ha.ne', hb.ne', hc.ne']\n  rw [div_le_div_iff (by positivity) (by positivity)]\n  nlinarith [sq_nonneg (a * b - b * c), sq_nonneg (b * c - c * a), sq_nonneg (c * a - a * b)]", "incorrect_proof": "theorem lean_workbook_plus_24 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : 1 / a + 1 / b + 1 / c ≥ 2 * (1 / (b + c) + 1 / (c + a) + 1 / (a + b))   := by\n  field_simp [ha.ne', hb.ne', hc.ne']\n  rw [div_le_div_iff (by positivity) (by sorry)]\n  nlinarith [sq_nonneg (a * b - b * c), sq_nonneg (b * c - c * a), sq_nonneg (c * a - a * b)]", "theorem": null, "src_hash": "a05b2425b12406284633999b65c6d03df350bae77c52177b9ded1265ea9ecad4", "correct_name": null, "incorrect_name": null, "correct_formal": null, "incorrect_formal": null, "correct_informal": null, "incorrect_informal": null}
+
+
+
+theorem lean_workbook_plus_17 (a b c : ℝ) (ha : 0 < b) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) (h : a^4 + b^4 + c^4 = 1) : a^3 / (1 - a^8) + b^3 / (1 - b^8) + c^3 / (1 - c^8) ≥ 9 * (3 : ℝ)^(1 / 4) / 8   := by
+  norm_num [ha, hb, hc, habc, h]
+  have h1 := sq_nonneg (a^2 - 1)
+  have h2 := sq_nonneg (b^2 - c^2)
+  nlinarith
+
+
+
+  Simplification Using Hypotheses:
+The proof begins by using the norm_num tactic with the given hypotheses (positivity conditions a,b,c>0, the product condition a⋅b⋅c=1, and the sum condition a^4+b^4+c^4=1). This simplifies the goal, though the exact transformation is handled internally by Lean.
+Nonnegativity of Squares:
+Two nonnegativity facts are introduced: (a^2−1)^2≥0 (since squares are always nonnegative). (b^2−1)^2≥0 (for the same reason).
+
+Final Inequality Deduction:
+The nlinarith tactic (which handles nonlinear arithmetic) combines these nonnegativity facts with the simplified goal and hypotheses to conclude the proof. This step likely expresses the difference between the left-hand side and right-hand side of the inequality as a combination of nonnegative terms (including the squares above), ensuring the inequality holds.
+
+Note: The proof relies on automated tactics (norm_num and nlinarith) to handle algebraic manipulations and arithmetic, leveraging the structure of the problem and the nonnegativity of squares. The positivity of a,b,c ensures denominators 
+1−a^8, etc., are nonzero (as a=1 would contradict a^4 + b^4 + c^4 = 1 under a⋅b⋅c=1).
+
+This approach efficiently reduces the problem to fundamental inequalities, demonstrating the power of automation in formal verification.

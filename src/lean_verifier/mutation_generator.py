@@ -8,7 +8,7 @@ import random
 from typing import List, Dict, Any, Optional, Tuple
 # from lean_verifier.core import verify_lean_file
 from lean_verifier.config import settings
-from lean_verifier.llm_zoo import GeminiInstance
+from lean_verifier.llm_zoo import OpenAIInstance, DeepSeekInstance
 # from lean_interact import LeanREPLConfig, TempRequireProject
 
 from aiolimiter import AsyncLimiter
@@ -18,8 +18,23 @@ import asyncio
 RATE_LIMIT = 5  # requests per second
 
 LINE_REPLACEMENT_PROMPT = """
-The following is a correct Lean 4 proof, but it has one line missing. Please help me complete the proof by filling in the line that says 'REDACTED'. Your response will be replace the word 'REDACTED' in the proof.
+One line has been redacted in this lean4 proof. Please complete the proof by providing the correct contents of the redacted line. Your response will be automatically searched for your answer. To facilitate this, please write "MY ANSWER" before your answer. Your answer should be exactly one line long and should contain no semicolons. For example, if you were given
+```lean4
+theorem very_simple: 1+1=2 := by
+  REDACTED
+```
+you might respond with
+\"\"\"
+This is very easy, `rfl` accomplishes this in Lean 4.
+MY ANSWER
+```lean4
+rfl
+```
+\"\"\"
+Now try this theorem
+```lean4
 {broken_proof}
+```
 """
 LINE_REPLACEMENT_SYSTEM_PROMPT = """
 You are a Lean 4 programmer.
@@ -124,20 +139,74 @@ async def generate_similar_theorem_mutation_for_record(record: Dict[str, Any], a
 
     return output_records
 
+
+def remove_imports(text: str) -> str:
+    """Strip lines that start with 'import' from the provided Lean source."""
+    return "".join(line for line in text.splitlines(keepends=True) if not line.startswith("import"))
+
+
+def is_line_comment(text: str, line_idx: int) -> bool:
+    lines = text.splitlines()
+    if line_idx >= len(lines):
+        return False
+    if lines[line_idx].strip().startswith("--"):
+        return True
+    pretext = "".join(lines[:line_idx])
+    if pretext.count("/-") > pretext.count("-/"):
+        return True
+    return False
+
+
+def redact_random_line(text: str) -> str:
+    """Replace a random non-comment, non-empty line with an indented REDACTED marker."""
+    lines = text.splitlines(keepends=True)
+    if not lines:
+        return text
+
+    candidates = [
+        idx for idx, line in enumerate(lines)
+        if line.strip() and not is_line_comment(text, idx)
+    ]
+    if not candidates:
+        return text
+
+    target = random.choice(candidates)
+
+    def _split_line_ending(line: str) -> Tuple[str, str]:
+        for ending in ("\r\n", "\n", "\r"):
+            if line.endswith(ending):
+                return line[:-len(ending)], ending
+        return line, ""
+
+    body, newline = _split_line_ending(lines[target])
+    indent_match = re.match(r"[ \t]*", body)
+    indent = indent_match.group(0) if indent_match else ""
+    indent = indent.replace("\n", "").replace("\r", "")
+    lines[target] = f"{indent}REDACTED{newline}"
+    return "".join(lines)
+
+
+def clean_response(response:str) -> str:
+    return response.split("MY ANSWER")[-1].split("```lean4")[-1].split("```")[0].strip()
+
+def sanitize_theorem_name(formal_statement: str) -> str:
+    words = formal_statement.split(" ")
+    words[1] = "my_theorem"
+    return " ".join(words)
+
+
 async def generate_model_replaces_line_mutation_for_record(text: str) -> List[Dict[str, Any]]:
     """
     For a single theorem record, asks a given LLM to replace a line, producing up to one varient.
     """
-    formal_statement, body = text.split("by\n", 1)
-    formal_statement += "by\n"
-    proof_lines = body.split('\n')
-    proof_lines[random.randrange(0, len(proof_lines))] = "REDACTED"
-    redacted_proof = formal_statement + '\n'.join(proof_lines)
-    prompt = LINE_REPLACEMENT_PROMPT.format(broken_proof=redacted_proof)
+    formal_statement, body = remove_imports(text).split("by", 1)
+    formal_statement += "by"
+    redacted_body = redact_random_line(body)
+    redacted_proof = formal_statement + '\n' + redacted_body
+    prompt_proof = sanitize_theorem_name(formal_statement) + '\n' + redacted_body
+    prompt = LINE_REPLACEMENT_PROMPT.format(broken_proof=prompt_proof)
 
-    chat = GeminiInstance(settings.gemini_prover_model, LINE_REPLACEMENT_SYSTEM_PROMPT)
-    response = await chat.querry(prompt, generation_config={
-        "max_output_tokens": 200
-    })
+    chat = DeepSeekInstance("deepseek-ai/DeepSeek-V3-0324", LINE_REPLACEMENT_SYSTEM_PROMPT)
+    response = clean_response(chat.querry(prompt))
     
     return redacted_proof.replace("REDACTED", response.replace("```\nlean\n", "").replace("```", ""))

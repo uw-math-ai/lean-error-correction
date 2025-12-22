@@ -19,12 +19,12 @@ from lean_verifier.data_models import ProofPair
 from lean_verifier.core import annotate_proof_worker
 from lean_interact import LeanREPLConfig, TempRequireProject
 
-def _annotate_one(config, pair):
+def _annotate_one(config, pair, skip_syntax_errors: bool=True):
     """
     Worker wrapper. Returns the result instead of writing to file 
     to avoid race conditions.
     """
-    return annotate_proof_worker(config, pair)
+    return annotate_proof_worker(config, pair, skip_syntax_errors)
 
 def load_processed_hashes(annotated_file: Path, excluded_file: Path) -> set[str]:
     """

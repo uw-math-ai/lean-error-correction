@@ -1,0 +1,82 @@
+
+#!/bin/bash
+set -u
+
+
+export PYTHONUSERBASE="$SCR/pylibs"
+export PATH="$PYTHONUSERBASE/bin:$PATH"
+mkdir -p "$PYTHONUSERBASE/lib/python3.12/site-packages"
+
+export PYTHONPATH="$PYTHONUSERBASE/lib/python3.12/site-packages:${PYTHONPATH:-}:/usr/local/lib/python3.12/site-packages"
+export PIP_CONFIG_FILE=/dev/null
+export PIP_USER=yes
+
+# Check if the container has the toolchain baked in at /opt/elan
+if [ -d "/opt/elan/toolchains" ]; then
+    # USE CONTAINER VERSION (FAST)
+    export ELAN_HOME="/opt/elan"
+    export PATH="/opt/elan/bin:$PATH"
+    echo "[leanenv] Using pre-installed toolchain from /opt/elan"
+else
+    # FALLBACK TO SCRATCH
+    export ELAN_HOME="$SCR/elan"
+    export PATH="$SCR/elan/bin:$PATH"
+    
+    if ! command -v elan >/dev/null 2>&1; then
+        echo "[leanenv] Elan not found. Installing to scratch..."
+        curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+        | bash -s -- -y --no-modify-path --default-toolchain none
+    fi
+    
+    # Only install if missing
+    if ! elan toolchain list | grep -q "$LEAN_TOOLCHAIN"; then
+        elan toolchain install "$LEAN_TOOLCHAIN"
+        elan default "$LEAN_TOOLCHAIN"
+    fi
+fi
+
+# Install tomli if missing (It will now safely install to $PYTHONUSERBASE)
+if ! python3 -c "import tomli" >/dev/null 2>&1; then
+    # PIP_USER=yes handles the location automatically now
+    pip install tomli >/dev/null
+fi
+
+
+# Check if Mathlib is already in the cache.
+OLEAN_CHECK=$(find "$SCR/li_cache" -name "Mathlib.olean" 2>/dev/null | head -n 1)
+
+if [ -z "$OLEAN_CHECK" ]; then
+    echo "[leanenv] Verifying/Building Mathlib..."
+    python3 -c "from lean_interact import TempRequireProject; TempRequireProject(require=\"mathlib\", lean_version=\"$LEAN_TOOLCHAIN\".split(\":\")[-1])"
+fi
+
+# Find all compiled library paths automatically
+NEW_PATHS=$(find "$SCR/li_cache" -type d -path "*/lib/lean" | sort -u | paste -sd:)
+if [ -n "$NEW_PATHS" ]; then
+    export LEAN_PATH="${NEW_PATHS}${LEAN_PATH:+:$LEAN_PATH}"
+fi
+
+export LEAN_NUM_THREADS=$(nproc)
+
+
+
+INIT_FILE="$SCR/.container_init_$$"
+cat <<EOF > "$INIT_FILE"
+# 1. Source user profile if it exists (ignoring errors)
+if [ -f ~/.bashrc ]; then . ~/.bashrc || true; fi
+
+# 2. RE-ASSERT CONTAINER PATHS (Override anything bashrc added)
+export ELAN_HOME="$ELAN_HOME"
+export PYTHONUSERBASE="$PYTHONUSERBASE"
+export PIP_USER=yes
+# Prepend our paths again to ensure they are first
+export PATH="$ELAN_HOME/bin:$PYTHONUSERBASE/bin:\$PATH"
+export PYTHONPATH="$PYTHONPATH"
+export LEAN_PATH="$LEAN_PATH"
+
+# 3. Visual indicator
+PS1="[lean-env] \u@\h:\w$ "
+EOF
+
+
+

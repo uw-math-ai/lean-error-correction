@@ -267,7 +267,22 @@ def get_state_before_first_error(
 # Annotation Worker (REWRITTEN)
 # =============================================================================
 
-def annotate_proof_worker(config: LeanREPLConfig, proof_pair: ProofPair) -> tuple[str, dict]:
+SYNTAX_PATTERNS = (
+    "invalid syntax",
+    "invalid command",
+    "invalid input",
+    "unexpected token",
+    "unexpected identifier",
+    "unexpected end of input",
+    "unterminated",
+    "parse error",
+)
+
+def _is_syntax_error(message: str) -> bool:
+    lower = message.lower()
+    return any(pattern in lower for pattern in SYNTAX_PATTERNS)
+
+def annotate_proof_worker(config: LeanREPLConfig, proof_pair: ProofPair, skip_syntax_errors: bool=False) -> tuple[str, dict]:
     try:
         server = AutoLeanServer(config)
         
@@ -277,7 +292,15 @@ def annotate_proof_worker(config: LeanREPLConfig, proof_pair: ProofPair) -> tupl
         analysis = get_state_before_first_error(incorrect_code, server)
 
         if analysis.get("error") is None:
-            return ('skipped', {"reason": "no errors found"})
+            return ('skipped', {"reason": "no errors found", "data": output_data})
+        
+        if skip_syntax_errors and _is_syntax_error(analysis.get("error")):
+            output_data['error'] = analysis.get("error")
+            output_data['line_at_error'] = line_text
+            output_data['state_at_error'] = state
+            output_data['line'] = line_user
+            output_data['col'] = col_user
+            return ('skpped', {"reason": "syntax error", "data": output_data})
 
         line_user = analysis.get("line")
         col_user = analysis.get("col")
