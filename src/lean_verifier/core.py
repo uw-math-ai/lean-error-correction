@@ -15,14 +15,14 @@ from lean_interact.interface import (
 from .data_models import LeanFile, ProofPair
 
 try:
-    from .data_models import LeanFile, ProofPair  # noqa: F401
-except Exception:  # pragma: no cover
-    ProofPair = None  # type: ignore[assignment]
+    from .data_models import LeanFile, ProofPair 
+except Exception:
+    ProofPair = None
 
 try:
-    from .config import IMPORT_PREAMBLE as _CONFIG_PREAMBLE  # noqa: F401
-    IMPORT_PREAMBLE = _CONFIG_PREAMBLE  # type: ignore[misc]
-except Exception:  # pragma: no cover
+    from .config import IMPORT_PREAMBLE as _CONFIG_PREAMBLE 
+    IMPORT_PREAMBLE = _CONFIG_PREAMBLE 
+except Exception: 
     IMPORT_PREAMBLE = "import Mathlib\n\n"
 
 
