@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=wkbk-exp
+#SBATCH --job-name=apptainer
 
 #SBATCH --account=amath
 #SBATCH --partition=cpu-g2
