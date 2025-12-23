@@ -7,6 +7,7 @@ pip install -e .
 pip install langfuse
 pip install asyncio
 pip install aiolimiter
+echo "Starting to run python scripts/line_mutation/mutate_proofs.py {dubious_proofs_path} {src_pass_path} {line_mutation_input_path}"
 python scripts/line_mutation/mutate_proofs.py {dubious_proofs_path} {src_pass_path} {line_mutation_input_path}
 """
 

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#SBATCH --job-name=generate_line_mutation_errors
+#SBATCH --job-name=wkbk-exp
 
 #SBATCH --account=amath
 #SBATCH --partition=cpu-g2
 #SBATCH --nodes=1
-#SBATCH --mem=3G
+#SBATCH --mem=7G
 #SBATCH --time=10:00:00 # Max runtime in DD-HH:MM:SS format.
 
 #SBATCH --chdir=/mmfs1/home/sgvtc

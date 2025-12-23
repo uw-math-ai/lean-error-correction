@@ -7,6 +7,7 @@ import functools
 from pathlib import Path
 import sys
 import hashlib
+import time,random
 
 # Ensure path is correct if run directly
 project_root = Path(__file__).parent.parent.parent
@@ -93,7 +94,18 @@ def annotate_proofs(incorrect_proofs_file, annotated_proofs_file, excluded_proof
 
     print("\nInitializing Lean environment with Mathlib...")
     # Initialize config once in the main process
-    config = LeanREPLConfig(project=TempRequireProject(lean_version=settings.lean_version, require="mathlib"))
+    tries = 1
+    config = None
+    while not config and tries <= 30:
+        try:
+            config = LeanREPLConfig(project=TempRequireProject(lean_version=settings.lean_version, require="mathlib"))
+        except RuntimeError:
+            time.sleep(random.random() / 20)
+            tries += 1
+    if config:
+        print(f"Created config in {tries} tries.")
+    else:
+        raise RuntimeError("Failed to create config in 30 tries.")
     print("Lean environment is ready.")
 
     print(f"\nProcessing in parallel with {settings.num_processes} workers...")

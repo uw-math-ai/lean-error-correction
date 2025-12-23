@@ -53,10 +53,10 @@ with reference_path.open("r", encoding="utf-8") as ref_file:
             print("json decode error")
             continue
         candidates = []
-        txt = obj.get("text")
+        txt = obj.get("text") or (obj.get("data").get("text") if obj.get("data") is not None else None)
         if isinstance(txt, str):
             candidates.append(txt)
-        alt = obj.get("correct_proof")
+        alt = obj.get("correct_proof") or (obj.get("data").get("correct_proof") if obj.get("data") is not None else None)
         if isinstance(alt, str):
             candidates.append(alt)
         for candidate in candidates:

@@ -44,6 +44,8 @@ class ProofPair:
     incorrect_formal: Optional[str] = None
     correct_informal: Optional[str] = None
     incorrect_informal: Optional[str] = None
+    line: Optional[int] = None
+    col: Optional[int] = None
 
     @classmethod
     def from_dict(cls, data: dict):

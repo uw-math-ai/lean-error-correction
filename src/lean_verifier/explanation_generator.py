@@ -5,7 +5,7 @@ import json
 import re
 from abc import ABC, abstractmethod
 
-from lean_verifier.llm_zoo import GeminiInstance  
+from lean_verifier.llm_zoo import DeepSeekInstance  
 from .config import Settings
 from .data_models import AnnotatedProof
 from lean_verifier.config import settings
@@ -55,14 +55,15 @@ class DefaultStrategy(ExplanationStrategy):
     def get_context(self, proof: AnnotatedProof) -> str:
         return "\n".join([
             "**Context:**",
-            f"Incorrect proof:\n```lean\n{proof.incorrect_proof}\n```",
+            f"Incorrect proof:\n```lean4\n{proof.incorrect_proof}\n```",
+            f"Corrected proof:\n```lean4\n{proof.correct_proof}\n```"
             f"Infoview state:\n{proof.state_at_error or '(empty)'}",
             f"Lean error:\n{proof.error or '(empty)'}",
         ])
 
     def get_instruction(self, proof: AnnotatedProof) -> str:
         return (
-            "Explain why this proof fails using only the snippet, infoview state, and error.\n\n"
+            "Explain why the incorrect proof fails and how to correct it using only the incorrect proof, infoview state, and error.\n\n"
             "Return ONLY one JSON object with exactly these two fields:\n"
             "{\n"
             '  "explanation": "1–3 sentences explaining the concrete reason the proof fails",\n'
@@ -188,8 +189,8 @@ async def generate_explanation(proof: AnnotatedProof, model_settings: Settings=N
     user_prompt = f"{instruction}\n\n{context}"
 
     # 3. Make model call
-    chat = GeminiInstance(settings.gemini_explanation_model, system_prompt)
-    raw = await chat.querry(user_prompt) 
+    chat = DeepSeekInstance("deepseek-ai/DeepSeek-V3-0324", system_prompt)
+    raw = chat.querry(user_prompt) 
 
     # 4. Parse response
     explanation, fix_suggestion = strategy.parse_response(raw, proof)

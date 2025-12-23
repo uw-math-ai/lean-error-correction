@@ -293,14 +293,8 @@ def annotate_proof_worker(config: LeanREPLConfig, proof_pair: ProofPair, skip_sy
 
         if analysis.get("error") is None:
             return ('skipped', {"reason": "no errors found", "data": output_data})
-        
-        if skip_syntax_errors and _is_syntax_error(analysis.get("error")):
-            output_data['error'] = analysis.get("error")
-            output_data['line_at_error'] = line_text
-            output_data['state_at_error'] = state
-            output_data['line'] = line_user
-            output_data['col'] = col_user
-            return ('skpped', {"reason": "syntax error", "data": output_data})
+
+        line_text = ""
 
         line_user = analysis.get("line")
         col_user = analysis.get("col")
@@ -312,7 +306,6 @@ def annotate_proof_worker(config: LeanREPLConfig, proof_pair: ProofPair, skip_sy
 
         state = state_before or state_after or "Could not retrieve proof state."
 
-        line_text = ""
         try:
             if line_user is not None:
                 lines = incorrect_code.splitlines()
@@ -321,6 +314,14 @@ def annotate_proof_worker(config: LeanREPLConfig, proof_pair: ProofPair, skip_sy
         except Exception:
             pass 
 
+        if skip_syntax_errors and _is_syntax_error(analysis.get("error")):
+            output_data['error'] = analysis.get("error")
+            output_data['line_at_error'] = line_text
+            output_data['state_at_error'] = state
+            output_data['line'] = line_user
+            output_data['col'] = col_user
+            return ('skipped', {"reason": "syntax error", "data": output_data})
+        
         output_data['error'] = analysis.get("error")
         output_data['line_at_error'] = line_text
         output_data['state_at_error'] = state
@@ -330,4 +331,4 @@ def annotate_proof_worker(config: LeanREPLConfig, proof_pair: ProofPair, skip_sy
         return ('annotated', output_data)
 
     except Exception as e:
-        return ('error', {"error": str(e)})
+        return ('error', {"error": str(e), "data": output_data})

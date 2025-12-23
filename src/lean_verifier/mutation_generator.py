@@ -186,6 +186,52 @@ def redact_random_line(text: str) -> str:
     return "".join(lines)
 
 
+def redact_multiple_random_lines(text: str) -> str:
+    lines = text.splitlines(keepends=True)
+    if not lines:
+        return text
+
+    def _split_line_ending(line: str) -> Tuple[str, str]:
+        for ending in ("\r\n", "\n", "\r"):
+            if line.endswith(ending):
+                return line[:-len(ending)], ending
+        return line, ""
+
+    line_is_content = [
+        bool(line.strip()) and not is_line_comment(text, idx)
+        for idx, line in enumerate(lines)
+    ]
+
+    candidates = [idx for idx, is_content in enumerate(line_is_content) if is_content]
+    if not candidates:
+        return text
+
+    start_idx = random.choice(candidates)
+
+    max_actual = sum(1 for idx in range(start_idx, len(lines)) if line_is_content[idx])
+    if max_actual <= 0:
+        return text
+
+    target_actual = random.randint(1, max_actual)
+    actual_removed = 0
+    end_idx = start_idx
+    for idx in range(start_idx, len(lines)):
+        end_idx = idx
+        if line_is_content[idx]:
+            actual_removed += 1
+        if actual_removed >= target_actual:
+            break
+
+    first_body, _ = _split_line_ending(lines[start_idx])
+    indent_match = re.match(r"[ \t]*", first_body)
+    indent = indent_match.group(0) if indent_match else ""
+    indent = indent.replace("\n", "").replace("\r", "")
+    _, newline = _split_line_ending(lines[end_idx])
+
+    lines[start_idx:end_idx + 1] = [f"{indent}REDACTED{newline}"]
+    return "".join(lines)
+
+
 def clean_response(response:str) -> str:
     return response.split("MY ANSWER")[-1].split("```lean4")[-1].split("```")[0].strip()
 
@@ -199,11 +245,13 @@ async def generate_model_replaces_line_mutation_for_record(text: str) -> List[Di
     """
     For a single theorem record, asks a given LLM to replace a line, producing up to one varient.
     """
-    formal_statement, body = remove_imports(text).split("by", 1)
+    lemma_text, post_lemma_text = remove_imports(text).split("theorem", 1)
+    post_lemma_text = "theorem" + post_lemma_text
+    formal_statement, body = post_lemma_text.split("by", 1)
     formal_statement += "by"
     redacted_body = redact_random_line(body)
-    redacted_proof = formal_statement + '\n' + redacted_body
-    prompt_proof = sanitize_theorem_name(formal_statement) + '\n' + redacted_body
+    redacted_proof = lemma_text + formal_statement + redacted_body
+    prompt_proof = lemma_text + sanitize_theorem_name(formal_statement) + redacted_body
     prompt = LINE_REPLACEMENT_PROMPT.format(broken_proof=prompt_proof)
 
     chat = DeepSeekInstance("deepseek-ai/DeepSeek-V3-0324", LINE_REPLACEMENT_SYSTEM_PROMPT)
