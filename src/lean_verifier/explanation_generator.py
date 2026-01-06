@@ -5,7 +5,7 @@ import json
 import re
 from abc import ABC, abstractmethod
 
-from lean_verifier.llm_zoo import DeepSeekInstance  
+from lean_verifier.llm_zoo import DeepSeekInstance, DummyModelInstance
 from .config import Settings
 from .data_models import AnnotatedProof
 from lean_verifier.config import settings
@@ -155,6 +155,70 @@ def _has_mutation_metadata(p: AnnotatedProof) -> bool:
         p.incorrect_informal is not None,
     ])
 
+
+class SwapStrategy(ExplanationStrategy):
+    """
+    Strategy for proofs that *are* known swap mutations.
+    Uses the "cheatsheet" metadata to give the LLM full context.
+    """
+
+    def get_system_prompt(self) -> str:
+        return (
+            "You are a Lean 4 programmer diagnosing one failing proof.\n"
+            "You will see an incorrect proof where one or more tactics have been "
+            "replaced with a similar but incorrect tactic. You will also see its state/error and a 'cheatsheet' of metadata "
+            "detailing the original (correct) line versus the modified (incorrect) line containing a swapped tactic.\n"
+            "Use this metadata to explain the failure."
+        )
+    
+    def get_context(self, proof: AnnotatedProof) -> str:
+        # Start with the same context as the DefaultStrategy
+        base_context = DefaultStrategy().get_context(proof)
+        
+        # Add additional stuff
+        metadata_parts = [
+            "\n**Swap Metadata (Cheatsheet):**",
+            "This metadata identifies the line(s) that were modified by replacing a tactic with a similar but incorrect one.",
+        ]
+
+        for i, m in enumerate(proof.metadata, 1):
+            metadata_parts.extend([
+                f"\n[Change #{i} at Line {m['line_number']}]:",
+                f"Original Line: {m['original_line']}",
+                f"Modified Line: {m['new_line']}",
+            ])
+        return base_context + "\n" + "\n".join(metadata_parts)
+
+    def get_instruction(self, proof: AnnotatedProof) -> str:
+        # The instruction can now safely assume rest of mutation metadata is present
+        return (
+            "Explain why the proof fails by contrasting the original vs the modified line.\n\n"
+            "Return ONLY one JSON object with exactly these two fields:\n"
+            "{\n"
+            '  "explanation": "1–3 sentences explaining the concrete reason the proof fails",\n'
+            '  "fix_suggestion": "1 sentence describing the high-level fix for the failing line(s) that explains how the reasoning or tactic should be adjusted to satisfy the current goal."\n'            
+            "}\n"
+            "No code blocks. No extra fields. Both fields must be non-empty."
+        )
+
+    def parse_response(self, raw: str, proof: AnnotatedProof) -> Tuple[str, str]:
+        exp, fix = _parse_lenient_two_fields(raw)
+        
+        if not exp:
+            exp = "The proof fails because the used tactic does not match the goal."
+
+        if not fix:
+            failing_lines = ", ".join(str(m['line_number']) for m in proof.metadata)
+            fix = (
+                f"Replace tactic(s) in line(s) {failing_lines} to align with the goal's type/assumptions."
+            )
+        
+        return exp, fix
+
+def _has_swap_metadata(p: AnnotatedProof) -> bool:
+    """Helper function to check for swap data."""
+    return p.metadata is not None and len(p.metadata) > 0
+
 def choose_strategy(proof: AnnotatedProof) -> ExplanationStrategy:
     """
     Inspects the proof and selects the appropriate explanation strategy.
@@ -164,6 +228,8 @@ def choose_strategy(proof: AnnotatedProof) -> ExplanationStrategy:
         return MutationStrategy()
     
     # --- ADD NEW STRATEGIES HERE ---
+    elif _has_swap_metadata(proof):
+        return SwapStrategy()
     
     else:
         return DefaultStrategy()

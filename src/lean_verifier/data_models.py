@@ -4,7 +4,7 @@ import hashlib
 import json
 from dataclasses import dataclass, asdict 
 from pathlib import Path
-from typing import Optional 
+from typing import List, Optional, Dict, Any
 
 @dataclass
 class LeanFile:
@@ -31,7 +31,7 @@ class LeanFile:
 @dataclass
 class ProofPair:
     """Represents a pair of a correct and an incorrect Lean proof."""
-    path: str
+    # path: str
     correct_proof: str
     incorrect_proof: str
     
@@ -46,6 +46,7 @@ class ProofPair:
     incorrect_informal: Optional[str] = None
     line: Optional[int] = None
     col: Optional[int] = None
+    metadata: Optional[List[Dict[str, Any]]] = None
 
     @classmethod
     def from_dict(cls, data: dict):
@@ -62,9 +63,29 @@ class AnnotatedProof(ProofPair):
     Represents an incorrect proof that has been annotated with error
     information from the Lean server. Inherits from ProofPair.
     """
+    annotation_status: Optional[str] = None
     error: Optional[str] = None
+    line: Optional[int] = None
+    col: Optional[int] = None
     line_at_error: Optional[str] = None
     state_at_error: Optional[str] = None
+    state_before: Optional[str] = None
+    state_after: Optional[str] = None
+
+    @classmethod
+    def from_swap_dict(cls, data:dict):
+        data = dict(data)
+
+        if "theorem_name" in data:
+            data["theorem"] = data.pop("theorem_name")
+
+        if "original" in data:
+            data["correct_proof"] = data.pop("original")
+
+        if "swap_error" in data:
+            data["incorrect_proof"] = data.pop("swap_error")
+        
+        return cls.from_dict(data)
 
     @classmethod
     def from_dict(cls, data: dict):
