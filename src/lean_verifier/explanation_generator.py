@@ -165,9 +165,10 @@ class SwapStrategy(ExplanationStrategy):
     def get_system_prompt(self) -> str:
         return (
             "You are a Lean 4 programmer diagnosing one failing proof.\n"
-            "You will see an incorrect proof where one or more tactics have been "
-            "replaced with a similar but incorrect tactic. You will also see its state/error and a 'cheatsheet' of metadata "
-            "detailing the original (correct) line versus the modified (incorrect) line containing a swapped tactic.\n"
+            "You will see an incorrect proof containing one or more invalid tactics. "
+            "You will also see its state/error and a 'cheatsheet' of metadata "
+            "detailing the intended (correct) line versus the current (incorrect) line containing a swapped tactic.\n"
+            "The proof may contain multiple independent tactic failures. The compiler error may only reflect the first encountered failure. Your explanation and fix suggestion should consider all incorrect tactics shown.\n"
             "Use this metadata to explain the failure."
         )
     
@@ -178,25 +179,25 @@ class SwapStrategy(ExplanationStrategy):
         # Add additional stuff
         metadata_parts = [
             "\n**Swap Metadata (Cheatsheet):**",
-            "This metadata identifies the line(s) that were modified by replacing a tactic with a similar but incorrect one.",
+            "This metadata contrast the intended proof step that satisfies the goal with the current proof step that fails the goal.",
         ]
 
         for i, m in enumerate(proof.metadata, 1):
             metadata_parts.extend([
-                f"\n[Change #{i} at Line {m['line_number']}]:",
-                f"Original Line: {m['original_line']}",
-                f"Modified Line: {m['new_line']}",
+                f"\n[Error #{i} at Line {m['line_number']}]:",
+                f"Intended Line: {m['original_line']}",
+                f"Incorrect Line: {m['new_line']}",
             ])
         return base_context + "\n" + "\n".join(metadata_parts)
 
     def get_instruction(self, proof: AnnotatedProof) -> str:
         # The instruction can now safely assume rest of mutation metadata is present
         return (
-            "Explain why the proof fails by contrasting the original vs the modified line.\n\n"
+            "Explain why the proof fails by contrasting the incorrect line vs the intended line.\n\n"
             "Return ONLY one JSON object with exactly these two fields:\n"
             "{\n"
-            '  "explanation": "1–3 sentences explaining the concrete reason the proof fails",\n'
-            '  "fix_suggestion": "1 sentence describing the high-level fix for the failing line(s) that explains how the reasoning or tactic should be adjusted to satisfy the current goal."\n'            
+            '  "explanation": "1–3 sentences explaining the concrete reason why the applied tactic(s) fail to make progress on the goal,including reasoning about goal structure, type, or required properties, without directly mentioning the replacement tactic.",\n'
+            '  "fix_suggestion": "Start with EXACTLY the following format: \'Replace `FULL_INCORRECT_TACTIC` with `FULL_INTENDED_TACTIC` on Line X because EXPLANATION \'. Use the full tactic call including arguments. If multiple errors exist, list fixes for all."\n '
             "}\n"
             "No code blocks. No extra fields. Both fields must be non-empty."
         )
