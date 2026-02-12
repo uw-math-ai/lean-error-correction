@@ -50,6 +50,7 @@ Existing Lean datasets contain correct proofs. Models learn error correction wit
   doi    = {10.48550/arXiv.2602.02990},
   url    = {https://arxiv.org/abs/2602.02990}
 }
+```
 
 # Running
 First, run the following commands
