@@ -6,12 +6,9 @@
 [![HF Paper](https://img.shields.io/badge/HF-Paper-yellow.svg)](https://huggingface.co/papers/2602.02990)
 [![Dataset: APRIL](https://img.shields.io/badge/Dataset-APRIL-blue.svg)](https://huggingface.co/datasets/uw-math-ai/APRIL)
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/0e9b4968-2bf2-4876-afd5-e07a671f7fc0"
-       width="20%" style="vertical-align: top;" />
-  <img src="https://github.com/user-attachments/assets/90b56026-7f8c-4e88-9a8c-2a3c91f24f4a"
-       width="30%" style="vertical-align: top;" />
-</p>
+<img align="right"
+     src="https://github.com/user-attachments/assets/0e9b4968-2bf2-4876-afd5-e07a671f7fc0"
+     width="320" />
 
 ## TL;DR
 Existing Lean datasets contain correct proofs. Models learn error correction with RL, that's expensive. We release a dataset of 260k erroneous Lean proofs, the compiler feedback, error explanation, proof repair reasoning trace, and the corrected proof.
@@ -20,18 +17,20 @@ Existing Lean datasets contain correct proofs. Models learn error correction wit
 - **APRIL**: https://huggingface.co/datasets/uw-math-ai/APRIL  
   Contains erroneous Lean proofs, compiler feedback, diagnostic explanations, repair reasoning traces, and corrected proofs.
 
-## Single-shot repair results (from the HF paper page)
+## Single-shot repair results
 | Model | Baseline | Fine-tuned (APRIL) |
 |---|---:|---:|
 | Goedel-Prover-V2-8B | 15.5% | **34.6%** |
 | Kimina-Prover-8B | 11.1% | **31.9%** |
 | Qwen3-4B-Instruct-2507 | 1.1% | **27.4%** |
-| Goedel-Prover-V2-32B | **26.8%** | — |
 
 ## Links
 - Paper (arXiv): https://arxiv.org/abs/2602.02990  
 - Hugging Face paper page: https://huggingface.co/papers/2602.02990  
 - Dataset: https://huggingface.co/datasets/uw-math-ai/APRIL  
+
+<br clear="right"/>
+
 
 ## Citation
 ```bibtex
