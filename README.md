@@ -1,9 +1,65 @@
 # lean-error-correction
 
+
+
 Existing Lean datasets contain correct proofs. Models learn error correction with RL, that's expensive. We release a dataset of 260k erroneous Lean proofs, the compiler feedback, error explanation, proof repair reasoning trace, and the corrected proof.
 
-<img width="1623" height="2133" alt="image" src="https://github.com/user-attachments/assets/0e9b4968-2bf2-4876-afd5-e07a671f7fc0" />
-<img width="388" height="220" alt="image" src="https://github.com/user-attachments/assets/90b56026-7f8c-4e88-9a8c-2a3c91f24f4a" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0e9b4968-2bf2-4876-afd5-e07a671f7fc0" width="400" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/90b56026-7f8c-4e88-9a8c-2a3c91f24f4a" width="400" />
+</p>
+
+
+<div align="center">
+
+# Learning to Repair Lean Proofs from Compiler Feedback
+
+**Evan Wang, Simon Chess, Daniel Lee, Siyuan Ge, Ajit Mallavarapu, Vasily Ilin**
+
+[![arXiv](https://img.shields.io/badge/arXiv-2602.02990-b31b1b.svg)](https://arxiv.org/abs/2602.02990)
+[![HF Paper](https://img.shields.io/badge/HF-Paper-yellow.svg)](https://huggingface.co/papers/2602.02990)
+[![Dataset: APRIL](https://img.shields.io/badge/Dataset-APRIL-blue.svg)](https://huggingface.co/datasets/uw-math-ai/APRIL)
+
+</div>
+
+## TL;DR
+Train models to *repair* Lean proofs by supervising on **(broken proof, compiler diagnostics) → (fixed proof + diagnostic-grounded explanation)**.
+
+## What this paper does
+- Formulates **Lean proof repair** as a supervised learning problem conditioned on **compiler feedback**.
+- Introduces **APRIL (Automated Proof Repair in Lean)**: **260k** tuples of systematically generated proof failures + diagnostics + aligned repair + explanation targets.
+- Shows substantial gains in **single-shot** repair from finetuning on APRIL.
+
+## Dataset
+- **APRIL**: https://huggingface.co/datasets/uw-math-ai/APRIL  
+  Contains erroneous Lean proofs, compiler feedback, diagnostic explanations, repair reasoning traces, and corrected proofs.
+
+## Single-shot repair results (from the HF paper page)
+| Model | Baseline | Fine-tuned (APRIL) |
+|---|---:|---:|
+| Goedel-Prover-V2-8B | 15.5% | **34.6%** |
+| Kimina-Prover-8B | 11.1% | **31.9%** |
+| Qwen3-4B-Instruct-2507 | 1.1% | **27.4%** |
+| Goedel-Prover-V2-32B | **26.8%** | — |
+
+## Links
+- Paper (arXiv): https://arxiv.org/abs/2602.02990  
+- Hugging Face paper page: https://huggingface.co/papers/2602.02990  
+- Dataset: https://huggingface.co/datasets/uw-math-ai/APRIL  
+
+## Citation
+```bibtex
+@article{wang2026repairlean,
+  title  = {Learning to Repair Lean Proofs from Compiler Feedback},
+  author = {Wang, Evan and Chess, Simon and Lee, Daniel and Ge, Siyuan and Mallavarapu, Ajit and Ilin, Vasily},
+  journal= {arXiv preprint arXiv:2602.02990},
+  year   = {2026},
+  doi    = {10.48550/arXiv.2602.02990},
+  url    = {https://arxiv.org/abs/2602.02990}
+}
 
 # Running
 First, run the following commands
