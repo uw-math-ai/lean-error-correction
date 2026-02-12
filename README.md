@@ -6,9 +6,9 @@
 [![HF Paper](https://img.shields.io/badge/HF-Paper-yellow.svg)](https://huggingface.co/papers/2602.02990)
 [![Dataset: APRIL](https://img.shields.io/badge/Dataset-APRIL-blue.svg)](https://huggingface.co/datasets/uw-math-ai/APRIL)
 
-<img align="right"
-     src="https://github.com/user-attachments/assets/0e9b4968-2bf2-4876-afd5-e07a671f7fc0"
-     width="320" />
+<table>
+<tr>
+<td width="70%" valign="top">
 
 ## TL;DR
 Existing Lean datasets contain correct proofs. Models learn error correction with RL, that's expensive. We release a dataset of 260k erroneous Lean proofs, the compiler feedback, error explanation, proof repair reasoning trace, and the corrected proof.
@@ -29,7 +29,15 @@ Existing Lean datasets contain correct proofs. Models learn error correction wit
 - Hugging Face paper page: https://huggingface.co/papers/2602.02990  
 - Dataset: https://huggingface.co/datasets/uw-math-ai/APRIL  
 
-<br clear="right"/>
+</td>
+<td width="30%" valign="top">
+
+<img src="https://github.com/user-attachments/assets/0e9b4968-2bf2-4876-afd5-e07a671f7fc0" width="100%"/>
+
+</td>
+</tr>
+</table>
+
 
 
 ## Citation
