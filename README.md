@@ -8,7 +8,7 @@
 
 <table>
 <tr>
-<td width="70%" valign="top">
+<td width="60%" valign="top">
 
 ## TL;DR
 Existing Lean datasets contain correct proofs. Models learn error correction with RL, that's expensive. We release a dataset of 260k erroneous Lean proofs, the compiler feedback, error explanation, proof repair reasoning trace, and the corrected proof.
@@ -30,7 +30,7 @@ Existing Lean datasets contain correct proofs. Models learn error correction wit
 - Dataset: https://huggingface.co/datasets/uw-math-ai/APRIL  
 
 </td>
-<td width="30%" valign="top">
+<td width="40%" valign="top">
 
 <img src="https://github.com/user-attachments/assets/0e9b4968-2bf2-4876-afd5-e07a671f7fc0" width="100%"/>
 
