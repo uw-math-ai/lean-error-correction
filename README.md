@@ -1,6 +1,9 @@
 # lean-error-correction
 
-A project run by the [Math AI Lab](https://sites.math.washington.edu/ai/) at the University of Washington starting in Autumn 2025 (based on prior work in Summer 2025). 
+Existing Lean datasets contain correct proofs. Models learn error correction with RL, that's expensive. We release a dataset of 260k erroneous Lean proofs, the compiler feedback, error explanation, proof repair reasoning trace, and the corrected proof.
+
+<img width="1623" height="2133" alt="image" src="https://github.com/user-attachments/assets/0e9b4968-2bf2-4876-afd5-e07a671f7fc0" />
+<img width="388" height="220" alt="image" src="https://github.com/user-attachments/assets/90b56026-7f8c-4e88-9a8c-2a3c91f24f4a" />
 
 # Running
 First, run the following commands
