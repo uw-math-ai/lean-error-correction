@@ -29,8 +29,8 @@ Existing Lean datasets contain correct proofs. Models learn error correction wit
 - Hugging Face paper page: https://huggingface.co/papers/2602.02990  
 - Dataset: https://huggingface.co/datasets/uw-math-ai/APRIL
 - Models:
-  - Goedel-8B-wo-exp: https://huggingface.co/uw-math-ai/gAPRIL-wo-exp
-  - Goedel-8B-w-exp: https://huggingface.co/uw-math-ai/gAPRIL-w-exp
+  - Goedel-wo-exp: https://huggingface.co/uw-math-ai/gAPRIL-wo-exp
+  - Goedel-w-exp: https://huggingface.co/uw-math-ai/gAPRIL-w-exp
 
 </td>
 <td width="40%" valign="top">
